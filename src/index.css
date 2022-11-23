@@ -1,0 +1,24 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  max-width: 1200px;
+}
+
+body {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+}
+
+:root {
+  --purple-ligth: #92698d;
+  --gray-90: #151414;
+  --gray-80: #1d1b1a;
+  --gray-70: #302d2d;
+  --gray-30: #a4a4a4;
+
+  --blue-60: #1a3969;
+
+  --error: rgb(250, 78, 78);
+}

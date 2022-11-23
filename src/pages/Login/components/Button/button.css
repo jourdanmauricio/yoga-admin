@@ -1,0 +1,18 @@
+.form__button {
+  margin-top: 2em;
+  padding: 10px 18px;
+  font-size: 15px;
+  background: var(--blue-60);
+  width: 100%;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  transition: all 0.2s ease;
+}
+.form__button:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
+.form__button:focus {
+  box-shadow: 0px 0px 0px 3px black;
+}
