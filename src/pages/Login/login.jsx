@@ -5,7 +5,7 @@ import Title from "./components/Title/title";
 import Input from "./components/Input/input";
 import Button from "./components/Button/button";
 import { useDispatch, useSelector } from "react-redux";
-import { logOut, signIn } from "../../store/user";
+import { signIn } from "../../store/user";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../commons/spinner/spinner";
 

@@ -1,11 +1,14 @@
-import { Provider } from "react-redux";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { Provider, useSelector } from "react-redux";
+import { BrowserRouter, Link, Navigate, Route, Routes } from "react-router-dom";
 import { persistor, store } from "./store";
 
 import "./App.css";
 import Login from "./pages/Login/login";
 import Home from "./pages/Home/home";
 import { PersistGate } from "redux-persist/integration/react";
+import Settings from "./pages/Settings/settings";
+import Lessons from "./pages/Lessons/lessons";
+import Students from "./pages/Students/students";
 
 let Error404 = () => {
   return (
@@ -26,6 +29,15 @@ let NotImplemented = () => {
   );
 };
 
+const AuthRoute = (props) => {
+  let user = useSelector((state) => state.user.user);
+  const auth = ["admin", "superadmin"];
+  if (!auth.includes(user.role)) {
+    return <Navigate to="/" />;
+  }
+  return props.children;
+};
+
 function App() {
   return (
     <BrowserRouter>
@@ -33,7 +45,38 @@ function App() {
         <PersistGate loading={null} persistor={persistor}>
           <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/home" element={<Home />} />
+            <Route
+              path="/home"
+              element={
+                <AuthRoute>
+                  <Home />
+                </AuthRoute>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <AuthRoute>
+                  <Settings />
+                </AuthRoute>
+              }
+            />
+            <Route
+              path="/lessons"
+              element={
+                <AuthRoute>
+                  <Lessons />
+                </AuthRoute>
+              }
+            />
+            <Route
+              path="/students"
+              element={
+                <AuthRoute>
+                  <Students />
+                </AuthRoute>
+              }
+            />
             <Route path="*" element={<Error404 />} />
           </Routes>
         </PersistGate>

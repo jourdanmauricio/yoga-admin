@@ -1,0 +1,12 @@
+.lessons__container {
+  margin-top: 40px;
+}
+@media (min-width: 769px) {
+  .lessons__container {
+    display: grid;
+    min-height: 270px;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 2em;
+  }
+}

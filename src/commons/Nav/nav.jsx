@@ -9,7 +9,7 @@ import { logOut } from "../../store/user";
 import "./nav.css";
 
 const Nav = () => {
-  const [mobileMenu, setMobileMenu] = useState(false);
+  const [mobileMenu, setMobileMenu] = useState(true);
   let user = useSelector((state) => state.user.user);
   let dispatch = useDispatch();
   let navigate = useNavigate();

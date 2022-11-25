@@ -1,0 +1,17 @@
+.lessons__actions {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.lesson__icon {
+  border: none;
+  background: none;
+}
+
+.lesson__icon--edit {
+  color: var(--blue-60);
+}
+
+.lesson__icon--delete {
+  color: var(--error);
+}

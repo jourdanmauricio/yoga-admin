@@ -8,6 +8,11 @@ export default defineConfig(({ command, mode }) => {
   process.env = { ...process.env, ...env };
   return {
     plugins: [react()],
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "./src"),
+      },
+    },
   };
 });
 

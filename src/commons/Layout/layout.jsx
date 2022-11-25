@@ -25,22 +25,42 @@ const Layout = (props) => {
           <button className="sidebar__item--cta" onClick={handleMinItems}>
             {minItems ? <FaAngleRight /> : <FaAngleLeft />}
           </button>
-          <NavLink className="item__detail" to="#">
+          <NavLink
+            to="/home"
+            className={({ isActive }) =>
+              isActive ? "item__detail item__active" : "item__detail"
+            }
+          >
             <FaTh className="material__icon" />
             <span className="icon-text">Dashboard</span>
           </NavLink>
           <br />
-          <NavLink className="item__detail" to="#">
+          <NavLink
+            to="/settings"
+            className={({ isActive }) =>
+              isActive ? "item__detail item__active" : "item__detail"
+            }
+          >
             <FaCog className="material__icon" />
             <span className="icon-text">Configuración</span>
           </NavLink>
           <br />
-          <NavLink className="item__detail" to="#">
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "item__detail item__active" : "item__detail"
+            }
+            to="/lessons"
+          >
             <FaRegCalendarAlt className="material__icon" />
             <span className="icon-text">Clases</span>
           </NavLink>
           <br />
-          <NavLink className="item__detail" to="#">
+          <NavLink
+            to="/students"
+            className={({ isActive }) =>
+              isActive ? "item__detail item__active" : "item__detail"
+            }
+          >
             <FaUsers className="material__icon" />
             <span className="icon-text">Alumnos</span>
           </NavLink>
