@@ -17,7 +17,7 @@ const LessonsTableRow = ({ el, setDataToEdit, deleteData }) => {
             <FaEdit />
           </button>
           <button
-            onClick={() => deleteData(id)}
+            onClick={() => deleteData(el)}
             className="lesson__icon lesson__icon--delete"
           >
             <FaRegTrashAlt />

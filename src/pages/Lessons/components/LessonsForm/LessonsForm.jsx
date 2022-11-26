@@ -56,7 +56,6 @@ const LessonsForm = ({ createData, updateData, dataToEdit, setDataToEdit }) => {
 
   const handleClick = (type) => {
     if (type === "reset") {
-      console.log("RESET");
       setForm(initialForm);
       setDataToEdit(null);
     }

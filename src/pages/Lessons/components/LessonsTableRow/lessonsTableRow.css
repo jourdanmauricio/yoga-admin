@@ -6,6 +6,7 @@
 .lesson__icon {
   border: none;
   background: none;
+  cursor: pointer;
 }
 
 .lesson__icon--edit {

@@ -1,6 +1,12 @@
 .lessons__container {
   margin-top: 40px;
 }
+
+.lessons__title {
+  text-align: center;
+  color: var(--blue-60);
+}
+
 @media (min-width: 769px) {
   .lessons__container {
     display: grid;

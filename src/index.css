@@ -22,6 +22,8 @@ body {
   --gray-10: #f0f0f0;
 
   --blue-60: #1a3969;
+  --blue-40: #4476c5;
 
-  --error: rgb(250, 78, 78);
+  --error: #fa4b4b;
+  --success: #65d266;
 }

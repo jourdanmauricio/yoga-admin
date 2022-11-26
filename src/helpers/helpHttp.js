@@ -1,7 +1,11 @@
+import { useSelector } from "react-redux";
+
 export const helHttp = () => {
+  let user = useSelector((state) => state.user.user);
   const customFetch = (endpoint, options) => {
     const defualtHeaders = {
-      accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${user.token}`,
     };
 
     const controller = new AbortController();
@@ -12,10 +16,9 @@ export const helHttp = () => {
       ? { ...defualtHeaders, ...options.headers }
       : defualtHeaders;
 
-    options.body = JSON.stringify(options.body) || false;
+    options.body = JSON.stringify(options.body);
     if (!options.body) delete options.body;
 
-    console.log("options", options);
     setTimeout(() => controller.abort(), 3000);
 
     return fetch(endpoint, options)

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaPowerOff, FaBars } from "react-icons/fa";
 import logo from "../../assets/logos/logo2.svg";
 
@@ -15,7 +15,6 @@ const Nav = () => {
   let navigate = useNavigate();
 
   const handleMobileMenu = () => {
-    console.log("Click");
     setMobileMenu(!mobileMenu);
   };
 
