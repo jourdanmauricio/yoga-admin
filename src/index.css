@@ -4,7 +4,6 @@
   padding: 0;
 }
 html {
-  /* max-width: 1200px; */
   margin: 0 auto;
 }
 
@@ -19,6 +18,7 @@ body {
   --gray-80: #1d1b1a;
   --gray-70: #302d2d;
   --gray-30: #a4a4a4;
+  --gray-20: #e2e2e2;
   --gray-10: #f0f0f0;
 
   --blue-60: #1a3969;

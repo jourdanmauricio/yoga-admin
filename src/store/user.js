@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Axios from "axios";
+import { useNotification } from "../commons/Notifications/NotificationProvider";
 
 export const signUp = createAsyncThunk(
   "user/signUp",
@@ -8,18 +9,15 @@ export const signUp = createAsyncThunk(
     const response = await Axios.post(`${apiConfig.domain}/users`, {
       user: credentials,
     });
-    console.log("res ", response);
     return response.data.user;
   }
 );
 
 export const signIn = createAsyncThunk("user/signIn", async (data) => {
   const API_URL = `${import.meta.env.VITE_BACKEND_API}/auth/login`;
-  console.log("API_URL", API_URL);
   // async operation
   const response = await Axios.post(API_URL, data);
 
-  console.log("res ", response);
   return response.data.user;
 });
 

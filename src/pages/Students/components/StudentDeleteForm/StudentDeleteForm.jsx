@@ -1,6 +1,6 @@
 import React from "react";
 
-const LessonsDeleteForm = ({
+const StudentDeleteForm = ({
   dataToDelete,
   handleDelete,
   handleCancelDelete,
@@ -12,9 +12,9 @@ const LessonsDeleteForm = ({
 
   return (
     <form className="confirm__delete" onSubmit={handleSubmit}>
-      <h2 className="title">Eliminar clase</h2>
+      <h2 className="title">Eliminar Alumno</h2>
       <p className="delete__paragraph">
-        Esta seguro de eliminar la clase {dataToDelete?.id}?{" "}
+        Esta seguro de eliminar el alumno {dataToDelete?.name}?{" "}
       </p>
       <div className="delete__actions">
         <button
@@ -34,4 +34,4 @@ const LessonsDeleteForm = ({
   );
 };
 
-export default LessonsDeleteForm;
+export default StudentDeleteForm;

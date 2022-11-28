@@ -9,23 +9,24 @@ import LessonsTable from "./components/LessonsTable/LessonsTable";
 
 import { Modal } from "../../commons/Modal/Modal";
 import { useModal } from "../../hooks/useModal";
-import "./lessons.css";
 import { useNotification } from "../../commons/Notifications/NotificationProvider";
+
+const initialState = { id: "", days: "", hours: "" };
 
 const Lessons = () => {
   const dispatch = useNotification();
   const [isOpenModal, openModal, closeModal] = useModal(false);
   const [db, setDb] = useState(null);
-  const [loading, setLoaging] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [dataToEdit, setDataToEdit] = useState(null);
+  const [dataToEdit, setDataToEdit] = useState(initialState);
   const [dataToDelete, setDataToDelete] = useState(null);
 
   let api = helHttp();
   const url = `${import.meta.env.VITE_BACKEND_API}/lessons`;
 
   useEffect(() => {
-    setLoaging(true);
+    setLoading(true);
     api.get(url).then((res) => {
       if (!res.err) {
         setDb(res);
@@ -34,7 +35,7 @@ const Lessons = () => {
         setError(res);
         setDb(null);
       }
-      setLoaging(false);
+      setLoading(false);
     });
   }, [url]);
 
@@ -48,6 +49,7 @@ const Lessons = () => {
           type: "SUCCESS",
           message: "Clase creada!",
         });
+        console.log("Clase creada");
       } else {
         dispatch({
           type: "ERROR",
@@ -68,9 +70,18 @@ const Lessons = () => {
 
     api.put(endpoint, { body: obj }).then((res) => {
       if (!res.err) {
+        dispatch({
+          type: "SUCCESS",
+          message: "Clase modificada!",
+        });
         let newData = db.map((el) => (el.id === data.id ? data : el));
         setDb(newData);
       } else {
+        dispatch({
+          type: "ERROR",
+          message: "Error creando la clase",
+        });
+
         setError(res);
       }
     });
@@ -88,12 +99,12 @@ const Lessons = () => {
       if (!res.err) {
         let newData = db.filter((el) => el.id !== id);
         setDb(newData);
+        closeModal();
         setDataToDelete(null);
         dispatch({
           type: "SUCCESS",
           message: "Clase eliminada!",
         });
-        closeModal();
       } else {
         setError(res);
         dispatch({
@@ -111,7 +122,7 @@ const Lessons = () => {
 
   return (
     <Layout>
-      <h1 className="lessons__title">Clases</h1>
+      <h1 className="title">Clases</h1>
       <section className="lessons__container">
         <LessonsForm
           createData={createData}

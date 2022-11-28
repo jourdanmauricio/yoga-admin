@@ -6,7 +6,7 @@
   background-color: var(--gray-80);
 }
 
-.form__container {
+.login__container {
   text-align: center;
   margin-top: 90px;
   width: max-content;

@@ -8,10 +8,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../../store/user";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../commons/spinner/spinner";
+import { useNotification } from "../../commons/Notifications/NotificationProvider";
 
 const Login = () => {
   let dispatch = useDispatch();
-  let user = useSelector((state) => state.user.user);
+  // let user = useSelector((state) => state.user.user);
   let statusUser = useSelector((state) => state.user.status);
   let navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -19,10 +20,18 @@ const Login = () => {
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
   const [hasError, setHasError] = useState(false);
+  const dispatchNotif = useNotification();
 
   useEffect(() => {
     if (statusUser === "failed") setHasError(true);
-    if (statusUser === "success") navigate("/home");
+    if (statusUser === "success") {
+      dispatchNotif({
+        type: "SUCCESS",
+        message: "Bievenido!!! 💙 🧘‍♀️ ",
+      });
+
+      navigate("/home");
+    }
   }, [statusUser]);
 
   function handleChange(name, value) {
@@ -75,7 +84,7 @@ const Login = () => {
   return (
     <main className="container">
       {statusUser === "loading" && <Spinner />}
-      <form className="form__container" onSubmit={handleSubmit} noValidate>
+      <form className="login__container" onSubmit={handleSubmit} noValidate>
         <Title text="Bienvedido!!!" />
         <label className={`form__msg ${hasError && "form__error"}`}>
           Usuario o constraseña incorrecto

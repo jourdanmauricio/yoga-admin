@@ -1,14 +1,22 @@
 import React from "react";
-import LessonsTableRow from "../LessonsTableRow/LessonsTableRow";
+import StudentsTableRow from "../StudentsTableRow/StudentsTableRow";
 
-const LessonsTable = ({ data, setDataToEdit, deleteData }) => {
+const StudentsTable = ({ data, setDataToEdit, deleteData }) => {
+  console.log("data", data);
   return (
     <div className="table__container">
       <table className="table">
         <thead>
           <tr>
-            <th>Días</th>
-            <th>Horario</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>DNI</th>
+            <th>Inicio</th>
+            <th>Fin</th>
+            <th>Estado</th>
+            {/* <th>Certificado</th> */}
+            {/* <th>Cumpleaños</th> */}
             <th>Acciones</th>
           </tr>
         </thead>
@@ -19,7 +27,7 @@ const LessonsTable = ({ data, setDataToEdit, deleteData }) => {
             </tr>
           ) : (
             data.map((el) => (
-              <LessonsTableRow
+              <StudentsTableRow
                 key={el.id}
                 el={el}
                 setDataToEdit={setDataToEdit}
@@ -33,4 +41,4 @@ const LessonsTable = ({ data, setDataToEdit, deleteData }) => {
   );
 };
 
-export default LessonsTable;
+export default StudentsTable;
