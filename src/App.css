@@ -87,6 +87,25 @@
   font-size: 14px;
 }
 
+.table__actions {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.table__icon {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.table__icon--edit {
+  color: var(--blue-60);
+}
+
+.table__icon--delete {
+  color: var(--error);
+}
+
 /**************/
 /*   Formik   */
 /**************/

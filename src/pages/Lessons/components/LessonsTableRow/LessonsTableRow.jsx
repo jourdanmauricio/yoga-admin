@@ -1,5 +1,4 @@
 import React from "react";
-import "./lessonsTableRow.css";
 import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
 
 const LessonsTableRow = ({ el, setDataToEdit, deleteData }) => {
@@ -9,16 +8,16 @@ const LessonsTableRow = ({ el, setDataToEdit, deleteData }) => {
       <tr>
         <td>{days}</td>
         <td>{hours}</td>
-        <td className="lessons__actions">
+        <td className="table__actions">
           <button
             onClick={() => setDataToEdit(el)}
-            className="lesson__icon lesson__icon--edit"
+            className="table__icon table__icon--edit"
           >
             <FaEdit />
           </button>
           <button
             onClick={() => deleteData(el)}
-            className="lesson__icon lesson__icon--delete"
+            className="table__icon table__icon--delete"
           >
             <FaRegTrashAlt />
           </button>

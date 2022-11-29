@@ -1,18 +1,18 @@
-.lessons__actions {
+.table__actions {
   display: flex;
   justify-content: space-evenly;
 }
 
-.lesson__icon {
+.table__icon {
   border: none;
   background: none;
   cursor: pointer;
 }
 
-.lesson__icon--edit {
+.table__icon--edit {
   color: var(--blue-60);
 }
 
-.lesson__icon--delete {
+.table__icon--delete {
   color: var(--error);
 }

@@ -37,16 +37,16 @@ const StudentsTableRow = ({ el, handleAction }) => {
         <td>{status}</td>
         {/* <td>{certificate}</td> */}
         {/* <td>{birthday}</td> */}
-        <td className="lessons__actions">
+        <td className="table__actions">
           <button
             onClick={() => handleAction("EDIT", el)}
-            className="lesson__icon lesson__icon--edit"
+            className="table__icon table__icon--edit"
           >
             <FaEdit />
           </button>
           <button
             onClick={() => handleAction("DELETE", el)}
-            className="lesson__icon lesson__icon--delete"
+            className="table__icon table__icon--delete"
           >
             <FaRegTrashAlt />
           </button>
