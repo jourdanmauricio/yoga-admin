@@ -6,8 +6,8 @@ const LessonsTableRow = ({ el, setDataToEdit, deleteData }) => {
   return (
     <>
       <tr>
-        <td>{days}</td>
-        <td>{hours}</td>
+        <td data-titulo="Días">{days}</td>
+        <td data-titulo="Horario">{hours}</td>
         <td className="table__actions">
           <button
             onClick={() => setDataToEdit(el)}

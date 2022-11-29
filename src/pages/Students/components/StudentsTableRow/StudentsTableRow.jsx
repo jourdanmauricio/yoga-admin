@@ -7,11 +7,11 @@ const StudentsTableRow = ({ el, handleAction }) => {
   return (
     <>
       <tr>
-        <td>{name}</td>
-        <td>{email}</td>
-        <td>{phone}</td>
-        <td>{dni}</td>
-        <td>{status}</td>
+        <td data-titulo="Nombre">{name}</td>
+        <td data-titulo="Email">{email}</td>
+        <td data-titulo="Teléfono">{phone}</td>
+        <td data-titulo="DNI">{dni}</td>
+        <td data-titulo="Estado">{status}</td>
         <td className="table__actions">
           <button
             onClick={() => handleAction("EDIT", el)}

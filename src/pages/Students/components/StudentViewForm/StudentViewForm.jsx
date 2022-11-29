@@ -44,8 +44,8 @@ const StudentViewForm = ({ currentData, handleCancel }) => {
         <p className="info__feature">Comentario:</p>
         <p> {currentData.comment}</p>
       </div>
-      <div className="table__container">
-        <table className="table">
+      <div className="table__container--student">
+        <table className="table__student">
           <thead>
             <tr>
               <th>Inicio</th>
