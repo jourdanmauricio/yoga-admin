@@ -1,6 +1,6 @@
 .modal {
   position: fixed;
-  z-index: 100;
+  z-index: 600;
   top: 0;
   left: 0;
   width: 100%;
@@ -37,8 +37,8 @@
   position: absolute;
   border: none;
   background: none;
-  top: 1rem;
-  right: 1rem;
+  top: 0.5rem;
+  right: 0.5rem;
   font-size: 1.5em;
   color: var(--gray-80);
   cursor: pointer;

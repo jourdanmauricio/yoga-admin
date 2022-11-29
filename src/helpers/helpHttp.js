@@ -1,10 +1,5 @@
 import { useSelector } from "react-redux";
 
-function UserException(message) {
-  this.message = message;
-  this.status = "UserException";
-}
-
 export const helHttp = () => {
   let user = useSelector((state) => state.user.user);
 

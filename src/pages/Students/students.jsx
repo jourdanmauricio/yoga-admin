@@ -9,15 +9,17 @@ import { Modal } from "../../commons/Modal/Modal";
 import Loader from "../../components/Loader/Loader";
 import NewEditStudent from "./components/NewEditStudent/NewEditStudent";
 import Message from "../../commons/Message/Message";
+import StudentViewForm from "./components/StudentViewForm/StudentViewForm";
 
 const Students = () => {
   const [students, setStudents] = useState(null);
   const [currentData, setCurrentData] = useState(null);
-
-  const [isOpenModal, openModal, closeModal] = useModal(false);
   const [action, setAction] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const [isOpenModal, openModal, closeModal] = useModal(false);
+  const [isOpenModalView, openModalView, closeModalView] = useModal(false);
   const dispatch = useNotification();
 
   const api = helHttp();
@@ -54,6 +56,7 @@ const Students = () => {
     setCurrentData(null);
     setError(null);
     if (isOpenModal) closeModal();
+    if (isOpenModalView) closeModalView();
   };
 
   const deleteData = async (id) => {
@@ -86,18 +89,21 @@ const Students = () => {
     setCurrentData(data);
     setAction(action);
     if (action === "DELETE") openModal();
+    if (action === "VIEW") openModalView();
   };
 
   return (
     <Layout>
-      {!action && <h1 className="title">Alumnos</h1>}
+      {(!action || action === "DELETE" || action === "VIEW") && (
+        <h1 className="title">Alumnos</h1>
+      )}
       {action === "NEW" && <h1 className="title">Nuevo alumno</h1>}
       {action === "EDIT" && (
         <h1 className="title">Modificar alumno {currentData.name}</h1>
       )}
       {error && <Message msg={error} closeMessage={() => setError(null)} />}
 
-      {!action && (
+      {(!action || action === "DELETE" || action === "VIEW") && (
         <button
           onClick={() => setAction("NEW")}
           className="btn btn__primary"
@@ -108,7 +114,7 @@ const Students = () => {
         </button>
       )}
 
-      {action && action !== "DELETE" && (
+      {action && (action === "NEW" || action === "EDIT") && (
         <NewEditStudent
           handleCancel={handleCancel}
           currentData={currentData}
@@ -128,8 +134,17 @@ const Students = () => {
         <StudentDeleteForm
           currentData={currentData}
           handleDelete={deleteData}
-          handleCancelDelete={handleCancel}
+          handleCancel={handleCancel}
         />
+      </Modal>
+
+      <Modal isOpenModal={isOpenModalView} closeModal={closeModalView}>
+        {currentData && (
+          <StudentViewForm
+            currentData={currentData}
+            handleCancel={handleCancel}
+          />
+        )}
       </Modal>
     </Layout>
   );

@@ -12,11 +12,7 @@ const StudentsTable = ({ data, handleAction }) => {
             <th>Email</th>
             <th>Teléfono</th>
             <th>DNI</th>
-            <th>Inicio</th>
-            <th>Fin</th>
             <th>Estado</th>
-            {/* <th>Certificado</th> */}
-            {/* <th>Cumpleaños</th> */}
             <th>Acciones</th>
           </tr>
         </thead>

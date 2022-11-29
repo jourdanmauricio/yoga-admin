@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { helHttp } from "@/helpers/helpHttp";
 import { useNotification } from "@/commons/Notifications/NotificationProvider";
 import Loader from "@/components/Loader/Loader";
+import { formatDate, getAge } from "@/helpers/helpFunctions";
 
 const initialValues = {
   id: "",
@@ -18,6 +19,8 @@ const initialValues = {
   comment: "",
 };
 
+const today = new Date();
+
 const NewEditStudent = ({
   handleCancel,
   currentData,
@@ -26,10 +29,12 @@ const NewEditStudent = ({
   setError,
 }) => {
   const [loading, setLoading] = useState(false);
+  const [baja, setBaja] = useState(false);
   const dispatch = useNotification();
 
-  let api = helHttp();
-  let url = `${import.meta.env.VITE_BACKEND_API}/customers`;
+  const api = helHttp();
+  const url = `${import.meta.env.VITE_BACKEND_API}/customers`;
+  const urlHist = `${import.meta.env.VITE_BACKEND_API}/customers-history`;
 
   return (
     <Formik
@@ -67,11 +72,25 @@ const NewEditStudent = ({
         for (const prop in obj) {
           if (obj[prop] === "") obj[prop] = null;
         }
+        if (obj.birthday) obj.age = getAge(obj.birthday);
 
         let errorMessage;
         try {
           let data;
           let message;
+
+          if (baja) {
+            const history = {
+              customerId: currentData.id,
+              start: currentData.start,
+              end: today,
+            };
+            const dataHist = await api.post(urlHist, { body: history });
+            if (dataHist.statusCode) {
+              throw dataHist;
+            }
+          }
+          // if baja insert into customer_history
 
           if (currentData) {
             const endpoint = `${url}/${currentData.id}`;
@@ -107,19 +126,43 @@ const NewEditStudent = ({
       {({ isSubmitting, setFieldValue }) => {
         useEffect(() => {
           if (currentData) {
+            // console.log("birthday", currentData.birthday);
+            // console.log("birthday", formatDate(currentData.birthday));
+
+            let age;
+            let birthday;
+            if (currentData.birthday) {
+              age = getAge(currentData.birthday);
+              birthday = formatDate(currentData.birthday);
+            }
+
             setFieldValue("id", currentData.id || "");
             setFieldValue("status", currentData.status || "");
             setFieldValue("name", currentData.name || "");
             setFieldValue("email", currentData.email || "");
             setFieldValue("phone", currentData.phone || "");
             setFieldValue("address", currentData.address || "");
-            setFieldValue("birthday", currentData.birthday || "");
-            setFieldValue("age", currentData.age || "");
+            setFieldValue("birthday", birthday || "");
+            setFieldValue("age", age || "");
             setFieldValue("dni", currentData.dni || "");
             setFieldValue("certificate", currentData.certificate || "");
             setFieldValue("comment", currentData.comment || "");
           }
         }, [currentData]);
+
+        const handleChange = (value) => {
+          console.log("Change", value);
+          setFieldValue("status", value);
+
+          if (value === "Activo") {
+            setFieldValue("start", today);
+          }
+          if (value === "Baja") {
+            setBaja(true);
+          }
+
+          // if baja setBaja
+        };
 
         return (
           <>
@@ -127,7 +170,7 @@ const NewEditStudent = ({
             {!loading && (
               <Form className="form__container">
                 <div className="formulario">
-                  <div>
+                  {/* <div>
                     <label htmlFor="id">Id</label>
                     <Field
                       className="form__input"
@@ -135,7 +178,7 @@ const NewEditStudent = ({
                       name="id"
                       disabled
                     />
-                  </div>
+                  </div> */}
                   <div>
                     <label htmlFor="status">Estado</label>
                     <Field
@@ -143,6 +186,7 @@ const NewEditStudent = ({
                       as="select"
                       type="text"
                       name="status"
+                      onChange={(e) => handleChange(e.target.value)}
                       disabled={!currentData}
                     >
                       <option value="Activo">Activo</option>
@@ -200,13 +244,13 @@ const NewEditStudent = ({
                   <div>
                     <label htmlFor="birthday">Fecha de nacimiento</label>
                     <Field
-                      className="form__input"
+                      className="form__input form__input--date"
                       type="date"
                       name="birthday"
                       placeholder="20/10/2000"
                     />
                   </div>
-                  <div>
+                  {/* <div>
                     <label htmlFor="age">Edad</label>
                     <Field
                       className="form__input"
@@ -214,7 +258,7 @@ const NewEditStudent = ({
                       name="age"
                       placeholder="99"
                     />
-                  </div>
+                  </div> */}
                   <div>
                     <label htmlFor="dni">DNI</label>
                     <Field

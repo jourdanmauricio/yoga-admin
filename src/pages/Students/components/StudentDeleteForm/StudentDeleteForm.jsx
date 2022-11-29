@@ -1,10 +1,6 @@
 import React from "react";
 
-const StudentDeleteForm = ({
-  currentData,
-  handleDelete,
-  handleCancelDelete,
-}) => {
+const StudentDeleteForm = ({ currentData, handleDelete, handleCancel }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleDelete(currentData.id);
@@ -19,7 +15,7 @@ const StudentDeleteForm = ({
       <div className="delete__actions">
         <button
           className="btn"
-          onClick={handleCancelDelete}
+          onClick={handleCancel}
           id="cancel"
           type="button"
         >

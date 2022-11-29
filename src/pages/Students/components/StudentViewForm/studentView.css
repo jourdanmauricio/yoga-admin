@@ -1,0 +1,32 @@
+.student__container {
+  background-color: #fff;
+  padding: 40px 20px 20px;
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; */
+  max-height: 550px;
+  overflow-y: auto;
+}
+
+.student__info {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  margin-top: 20px;
+  text-align: left;
+  width: 100%;
+  padding: 0.5rem;
+  line-height: 1.5;
+  border: 1px solid var(--gray-30);
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.info__feature {
+  color: var(--gray-30);
+}
+
+.student__actions {
+  text-align: right;
+  margin-top: 20px;
+}

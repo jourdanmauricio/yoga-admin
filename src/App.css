@@ -139,11 +139,16 @@
   width: 100%;
   border-radius: 5px;
   border: 2px solid var(--gray-20);
-  font-size: 16px;
+  font-size: 14px;
   padding: 5px;
   margin-bottom: 5px;
   color: var(--gray-80);
   resize: none;
+}
+
+.form__input--date {
+  font-size: 14px;
+  font-family: Arial, sans-serif;
 }
 
 .form__input:focus {
