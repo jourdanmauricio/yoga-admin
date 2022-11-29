@@ -9,7 +9,7 @@ html {
 
 body {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  background-color: var(--gray-80);
+  /* background-color: var(--gray-80); */
 }
 
 :root {

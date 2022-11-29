@@ -1,16 +1,20 @@
+import React, { Suspense } from "react";
 import { Provider, useSelector } from "react-redux";
 import { BrowserRouter, Link, Navigate, Route, Routes } from "react-router-dom";
 import { persistor, store } from "./store";
 
-import "./App.css";
 import Login from "./pages/Login/login";
 import Home from "./pages/Home/home";
 import { PersistGate } from "redux-persist/integration/react";
 import Settings from "./pages/Settings/settings";
-import Lessons from "./pages/Lessons/lessons";
-import Students from "./pages/Students/students";
-import NewStudent from "./pages/Students/components/NewStudent/NewStudent";
-import EditStudent from "./pages/Students/components/EditStudent/EditStudent";
+// import Lessons from "./pages/Lessons/lessons";
+// import Students from "./pages/Students/students";
+const Students = React.lazy(() => import("./pages/Students/students"));
+const Lessons = React.lazy(() => import("./pages/Lessons/lessons"));
+
+import "./App.css";
+import Spinner from "./commons/spinner/spinner";
+import Loader from "./components/Loader/Loader";
 
 let Error404 = () => {
   return (
@@ -45,61 +49,45 @@ function App() {
     <BrowserRouter>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route
-              path="/home"
-              element={
-                <AuthRoute>
-                  <Home />
-                </AuthRoute>
-              }
-            />
-            <Route
-              path="/settings"
-              element={
-                <AuthRoute>
-                  <Settings />
-                </AuthRoute>
-              }
-            />
-            <Route
-              path="/lessons"
-              element={
-                <AuthRoute>
-                  <Lessons />
-                </AuthRoute>
-              }
-            />
-            {/*  Students  */}
-            <Route path="/students">
+          <Suspense fallback={<div />}>
+            <Routes>
+              <Route path="/" element={<Login />} />
               <Route
-                index
+                path="/home"
+                element={
+                  <AuthRoute>
+                    <Home />
+                  </AuthRoute>
+                }
+              />
+              <Route
+                path="/settings"
+                element={
+                  <AuthRoute>
+                    <Settings />
+                  </AuthRoute>
+                }
+              />
+              <Route
+                path="/lessons"
+                element={
+                  <AuthRoute>
+                    <Lessons />
+                  </AuthRoute>
+                }
+              />
+              <Route
+                path="/students"
                 element={
                   <AuthRoute>
                     <Students />
                   </AuthRoute>
                 }
               />
-              <Route
-                path="new"
-                element={
-                  <AuthRoute>
-                    <NewStudent />
-                  </AuthRoute>
-                }
-              />
-              <Route
-                path="edit/:id"
-                element={
-                  <AuthRoute>
-                    <EditStudent />
-                  </AuthRoute>
-                }
-              />
-            </Route>
-            <Route path="*" element={<Error404 />} />
-          </Routes>
+
+              <Route path="*" element={<Error404 />} />
+            </Routes>
+          </Suspense>
         </PersistGate>
       </Provider>
     </BrowserRouter>
