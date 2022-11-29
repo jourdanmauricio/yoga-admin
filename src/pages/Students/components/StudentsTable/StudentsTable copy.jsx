@@ -1,7 +1,7 @@
 import React from "react";
 import StudentsTableRow from "../StudentsTableRow/StudentsTableRow";
 
-const StudentsTable = ({ data, handleAction }) => {
+const StudentsTable = ({ data, setDataToEdit, deleteData }) => {
   console.log("data", data);
   return (
     <div className="table__container">
@@ -30,7 +30,8 @@ const StudentsTable = ({ data, handleAction }) => {
               <StudentsTableRow
                 key={el.id}
                 el={el}
-                handleAction={handleAction}
+                setDataToEdit={setDataToEdit}
+                deleteData={deleteData}
               />
             ))
           )}

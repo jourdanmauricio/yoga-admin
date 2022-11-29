@@ -2,18 +2,20 @@ import React, { useEffect, useState } from "react";
 import Layout from "../../commons/Layout/layout";
 import { useNotification } from "../../commons/Notifications/NotificationProvider";
 import { helHttp } from "../../helpers/helpHttp";
-import { Navigate, useNavigate } from "react-router-dom";
 import StudentsTable from "./components/StudentsTable/StudentsTable";
 import StudentDeleteForm from "./components/StudentDeleteForm/StudentDeleteForm";
 import { useModal } from "../../hooks/useModal";
 import { Modal } from "../../commons/Modal/Modal";
 import Loader from "../../components/Loader/Loader";
+import NewEditStudent from "./components/NewEditStudent/NewEditStudent";
+import Message from "../../commons/Message/Message";
 
 const Students = () => {
-  const [isOpenModal, openModal, closeModal] = useModal(false);
-  const [dataToDelete, setDataToDelete] = useState(null);
-  const navigate = useNavigate();
   const [students, setStudents] = useState(null);
+  const [currentData, setCurrentData] = useState(null);
+
+  const [isOpenModal, openModal, closeModal] = useModal(false);
+  const [action, setAction] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const dispatch = useNotification();
@@ -26,7 +28,7 @@ const Students = () => {
     api.get(url).then((res) => {
       if (!res.err) {
         setStudents(res);
-        console.log(students);
+
         setError(null);
       } else {
         setError(res);
@@ -36,95 +38,97 @@ const Students = () => {
     });
   }, [url]);
 
-  // const createData = (data) => {
-  //   delete data.id;
-  //   data.status = "Activo";
-  //   api.post(url, { body: data }).then((res) => {
-  //     if (!res.err) {
-  //       setDb([...db, res]);
-  //       dispatch({
-  //         type: "SUCCESS",
-  //         message: "Alumno creada!",
-  //       });
-  //     } else {
-  //       dispatch({
-  //         type: "ERROR",
-  //         message: "Error creando el alumno",
-  //       });
-  //       setError(res);
-  //     }
-  //   });
-  // };
-
-  const handleClick = () => {
-    navigate("/students/new");
+  const createData = (data) => {
+    setStudents([...students, data]);
+    handleCancel();
   };
 
-  const setDataToEdit = () => {
-    //
+  const updateData = (data) => {
+    let newData = students.map((el) => (el.id === data.id ? data : el));
+    setStudents(newData);
+    handleCancel();
   };
 
-  const deleteData = (student) => {
-    console.log("Confirm", student);
-    setDataToDelete(student);
-    openModal();
+  const handleCancel = () => {
+    setAction(null);
+    setCurrentData(null);
+    setError(null);
+    if (isOpenModal) closeModal();
   };
 
-  const handleCancelDelete = () => {
-    setDataToDelete(null);
-    closeModal();
-  };
-
-  const handleDelete = (id) => {
-    console.log("delete", id);
+  const deleteData = async (id) => {
     let endpoint = `${url}/${id}`;
 
-    api.del(endpoint).then((res) => {
-      if (!res.err) {
-        let newData = students.filter((el) => el.id !== id);
-        setStudents(newData);
-        setDataToDelete(null);
-        dispatch({
-          type: "SUCCESS",
-          message: "Alumno eliminado!",
-        });
-        closeModal();
-      } else {
-        setError(res);
-        dispatch({
-          type: "ERROR",
-          message: "Error eliminando el alumno",
-        });
-      }
-    });
+    try {
+      const data = await api.del(endpoint);
+
+      if (data.statusCode) throw data;
+      let newData = students.filter((el) => el.id !== id);
+      setStudents(newData);
+      setCurrentData(null);
+      dispatch({
+        type: "SUCCESS",
+        message: "Alumno eliminado!",
+      });
+    } catch (err) {
+      setError(`${err.statusCode}: ${err.error} - ${err.message}`);
+      dispatch({
+        type: "ERROR",
+        message: "Error eliminando el alumno",
+      });
+    } finally {
+      setAction(null);
+      closeModal();
+    }
+  };
+
+  const handleAction = (action, data) => {
+    setCurrentData(data);
+    setAction(action);
+    if (action === "DELETE") openModal();
   };
 
   return (
     <Layout>
-      <h1 className="title">Alumnos</h1>
+      {!action && <h1 className="title">Alumnos</h1>}
+      {action === "NEW" && <h1 className="title">Nuevo alumno</h1>}
+      {action === "EDIT" && (
+        <h1 className="title">Modificar alumno {currentData.name}</h1>
+      )}
+      {error && <Message msg={error} closeMessage={() => setError(null)} />}
 
-      <button
-        onClick={handleClick}
-        className="btn btn__primary"
-        id="newStudent"
-        type="button"
-      >
-        Nuevo alumno
-      </button>
-      {loading && <Loader />}
-      {students && (
-        <StudentsTable
-          data={students}
-          setDataToEdit={setDataToEdit}
-          deleteData={deleteData}
-        ></StudentsTable>
+      {!action && (
+        <button
+          onClick={() => setAction("NEW")}
+          className="btn btn__primary"
+          id="newStudent"
+          type="button"
+        >
+          Nuevo alumno
+        </button>
       )}
 
+      {action && action !== "DELETE" && (
+        <NewEditStudent
+          handleCancel={handleCancel}
+          currentData={currentData}
+          createStudent={createData}
+          updateStudent={updateData}
+          setError={setError}
+        />
+      )}
+      {loading && <Loader />}
+      {students && action !== "EDIT" && action !== "NEW" && (
+        <StudentsTable
+          data={students}
+          handleAction={handleAction}
+        ></StudentsTable>
+      )}
       <Modal isOpenModal={isOpenModal} closeModal={closeModal}>
         <StudentDeleteForm
-          dataToDelete={dataToDelete}
-          handleDelete={handleDelete}
-          handleCancelDelete={handleCancelDelete}
+          currentData={currentData}
+          handleDelete={deleteData}
+          handleCancelDelete={handleCancel}
         />
       </Modal>
     </Layout>

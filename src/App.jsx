@@ -9,7 +9,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import Settings from "./pages/Settings/settings";
 import Lessons from "./pages/Lessons/lessons";
 import Students from "./pages/Students/students";
-import NewStudent from "./pages/Students/components/newStudent/NewStudent";
+import NewStudent from "./pages/Students/components/NewStudent/NewStudent";
+import EditStudent from "./pages/Students/components/EditStudent/EditStudent";
 
 let Error404 = () => {
   return (
@@ -70,6 +71,7 @@ function App() {
                 </AuthRoute>
               }
             />
+            {/*  Students  */}
             <Route path="/students">
               <Route
                 index
@@ -79,12 +81,19 @@ function App() {
                   </AuthRoute>
                 }
               />
-
               <Route
                 path="new"
                 element={
                   <AuthRoute>
                     <NewStudent />
+                  </AuthRoute>
+                }
+              />
+              <Route
+                path="edit/:id"
+                element={
+                  <AuthRoute>
+                    <EditStudent />
                   </AuthRoute>
                 }
               />

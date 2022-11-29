@@ -12,7 +12,7 @@ function formatDate(date) {
   ].join("/");
 }
 
-const StudentsTableRow = ({ el, handleAction }) => {
+const StudentsTableRow = ({ el, setDataToEdit, deleteData }) => {
   let {
     id,
     name,
@@ -39,13 +39,13 @@ const StudentsTableRow = ({ el, handleAction }) => {
         {/* <td>{birthday}</td> */}
         <td className="lessons__actions">
           <button
-            onClick={() => handleAction("EDIT", el)}
+            onClick={() => setDataToEdit(el)}
             className="lesson__icon lesson__icon--edit"
           >
             <FaEdit />
           </button>
           <button
-            onClick={() => handleAction("DELETE", el)}
+            onClick={() => deleteData(el)}
             className="lesson__icon lesson__icon--delete"
           >
             <FaRegTrashAlt />

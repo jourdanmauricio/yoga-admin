@@ -1,8 +1,14 @@
 import { useSelector } from "react-redux";
 
+function UserException(message) {
+  this.message = message;
+  this.status = "UserException";
+}
+
 export const helHttp = () => {
   let user = useSelector((state) => state.user.user);
-  const customFetch = (endpoint, options) => {
+
+  const customFetch = async (endpoint, options) => {
     const defualtHeaders = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${user.token}`,
@@ -21,17 +27,20 @@ export const helHttp = () => {
 
     setTimeout(() => controller.abort(), 3000);
 
-    return fetch(endpoint, options)
-      .then((res) => {
-        return res.ok
-          ? res.json()
-          : Promise.reject({
-              err: true,
-              status: res.status || "00",
-              statusText: res.statusText || "Ocurrió un error",
-            });
-      })
-      .catch((err) => err);
+    const response = await fetch(endpoint, options);
+    const data = await response.json();
+    return data;
+    // return fetch(endpoint, options)
+    //   .then((res) => {
+    //     return res.ok
+    //       ? res.json()
+    //       : Promise.reject({
+    //           err: true,
+    //           status: res.status || "00",
+    //           statusText: res.statusText || "Ocurrió un error",
+    //         });
+    //   })
+    //   .catch((err) => err);
   };
 
   const get = (url, options = {}) => customFetch(url, options);

@@ -1,17 +1,15 @@
 import React from "react";
+import { FaRegWindowClose } from "react-icons/fa";
+import styles from "./message.module.css";
 
-const Message = ({ msg, bgColor }) => {
-  let styles = {
-    padding: "1rem",
-    marginBottom: "1rem",
-    textAlign: "center",
-    color: "#fff",
-    fontWeight: "bold",
-    backgroundColor: bgColor,
-  };
+const Message = ({ msg, closeMessage }) => {
   return (
-    <div style={styles}>
-      <p>{msg}</p>
+    <div className={styles.message}>
+      <button className={styles.message__close} onClick={closeMessage}>
+        <FaRegWindowClose />
+      </button>
+
+      <p className={styles.message__paragraph}>{msg}</p>
     </div>
   );
 };

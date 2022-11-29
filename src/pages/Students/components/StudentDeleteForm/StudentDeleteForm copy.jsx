@@ -1,20 +1,20 @@
 import React from "react";
 
 const StudentDeleteForm = ({
-  currentData,
+  dataToDelete,
   handleDelete,
   handleCancelDelete,
 }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleDelete(currentData.id);
+    handleDelete(dataToDelete.id);
   };
 
   return (
     <form className="confirm__delete" onSubmit={handleSubmit}>
       <h2 className="title">Eliminar Alumno</h2>
       <p className="delete__paragraph">
-        Esta seguro de eliminar el alumno {currentData?.name}
+        Esta seguro de eliminar el alumno {dataToDelete?.name}?{" "}
       </p>
       <div className="delete__actions">
         <button
