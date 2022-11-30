@@ -1,0 +1,20 @@
+.table__options {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5em;
+  margin-top: 2em;
+}
+
+.input {
+  border: thin solid var(--gray-70);
+  border-radius: 0.25rem;
+  padding: 0.4rem;
+  outline: none;
+  font-size: 14px;
+  line-height: 1;
+  max-width: 200px;
+  /* display: block; */
+  background-color: transparent;
+  color: var(--gray-80);
+}

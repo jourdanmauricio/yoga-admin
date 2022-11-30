@@ -9,12 +9,10 @@ import { PersistGate } from "redux-persist/integration/react";
 import Settings from "./pages/Settings/settings";
 // import Lessons from "./pages/Lessons/lessons";
 // import Students from "./pages/Students/students";
-const Students = React.lazy(() => import("./pages/Students/students"));
+const Students = React.lazy(() => import("./pages/Students/Students"));
 const Lessons = React.lazy(() => import("./pages/Lessons/lessons"));
 
 import "./App.css";
-import Spinner from "./commons/spinner/spinner";
-import Loader from "./components/Loader/Loader";
 
 let Error404 = () => {
   return (

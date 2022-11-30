@@ -10,8 +10,14 @@ import Loader from "../../components/Loader/Loader";
 import NewEditStudent from "./components/NewEditStudent/NewEditStudent";
 import Message from "../../commons/Message/Message";
 import StudentViewForm from "./components/StudentViewForm/StudentViewForm";
+import "./students.css";
+
+const keys = ["name", "email", "dni", "phone"];
 
 const Students = () => {
+  const [query, setQuery] = useState("");
+  const [status, setStatus] = useState("Activo");
+
   const [students, setStudents] = useState(null);
   const [currentData, setCurrentData] = useState(null);
   const [action, setAction] = useState(null);
@@ -24,6 +30,15 @@ const Students = () => {
 
   const api = helHttp();
   const url = `${import.meta.env.VITE_BACKEND_API}/customers`;
+
+  const search = (data) => {
+    const filterStatus = data.filter(
+      (item) => status === "" || item.status === status
+    );
+    return filterStatus.filter((item) =>
+      keys.some((key) => item[key].toLowerCase().includes(query))
+    );
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -94,6 +109,7 @@ const Students = () => {
 
   return (
     <Layout>
+      {/* TITLE */}
       {(!action || action === "DELETE" || action === "VIEW") && (
         <h1 className="title">Alumnos</h1>
       )}
@@ -101,17 +117,37 @@ const Students = () => {
       {action === "EDIT" && (
         <h1 className="title">Modificar alumno {currentData.name}</h1>
       )}
+
+      {/* MESSAGE */}
       {error && <Message msg={error} closeMessage={() => setError(null)} />}
 
+      {/* OPTIONS */}
       {(!action || action === "DELETE" || action === "VIEW") && (
-        <button
-          onClick={() => setAction("NEW")}
-          className="btn btn__primary"
-          id="newStudent"
-          type="button"
-        >
-          Nuevo alumno
-        </button>
+        <div className="table__options">
+          <input
+            onChange={(e) => setQuery(e.target.value)}
+            type="text"
+            placeholder="Buscar..."
+            className="input"
+          />
+          <select
+            onChange={(e) => setStatus(e.target.value)}
+            className="input"
+            name="status"
+          >
+            <option value="Activo">Activo</option>
+            <option value="Baja">Baja</option>
+            <option value="">Todos</option>
+          </select>
+          <button
+            onClick={() => setAction("NEW")}
+            className="btn btn__primary"
+            id="newStudent"
+            type="button"
+          >
+            Nuevo alumno
+          </button>
+        </div>
       )}
 
       {action && (action === "NEW" || action === "EDIT") && (
@@ -123,13 +159,20 @@ const Students = () => {
           setError={setError}
         />
       )}
+
       {loading && <Loader />}
+
+      {/* DATA */}
+
       {students && action !== "EDIT" && action !== "NEW" && (
         <StudentsTable
-          data={students}
+          data={search(students)}
           handleAction={handleAction}
         ></StudentsTable>
       )}
+
+      {/* MODALS */}
+
       <Modal isOpenModal={isOpenModal} closeModal={closeModal}>
         <StudentDeleteForm
           currentData={currentData}

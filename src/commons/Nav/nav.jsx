@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FaPowerOff, FaBars } from "react-icons/fa";
 import logo from "../../assets/logos/logo2.svg";
+import { FaCog, FaRegCalendarAlt, FaUsers, FaTh } from "react-icons/fa";
 
 import { logOut } from "../../store/user";
 
@@ -46,18 +47,48 @@ const Nav = () => {
       >
         <ul>
           <li>
-            <a href="/#inicio">Inicio</a>
+            <NavLink
+              to="/home"
+              className={({ isActive }) =>
+                isActive ? "item__detail item__active" : "item__detail"
+              }
+            >
+              <FaTh className="material__icon" />
+              <span className="icon-text">Dashboard</span>
+            </NavLink>
           </li>
           <li>
-            <a href="/#servicios">Servicios</a>
+            <NavLink
+              to="/settings"
+              className={({ isActive }) =>
+                isActive ? "item__detail item__active" : "item__detail"
+              }
+            >
+              <FaCog className="material__icon" />
+              <span className="icon-text">Configuración</span>
+            </NavLink>
           </li>
           <li>
-            <a href="/">Horarios</a>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "item__detail item__active" : "item__detail"
+              }
+              to="/lessons"
+            >
+              <FaRegCalendarAlt className="material__icon" />
+              <span className="icon-text">Clases</span>
+            </NavLink>
           </li>
           <li>
-            <a href="./contacto.html" className="menu__active">
-              Contacto
-            </a>
+            <NavLink
+              to="/students"
+              className={({ isActive }) =>
+                isActive ? "item__detail item__active" : "item__detail"
+              }
+            >
+              <FaUsers className="material__icon" />
+              <span className="icon-text">Alumnos</span>
+            </NavLink>
           </li>
         </ul>
       </div>
