@@ -103,6 +103,18 @@
   resize: none;
 }
 
+.form__input--colorDesc {
+  width: 40%;
+  margin-left: 20%;
+}
+
+.form__input--color {
+  width: 40%;
+  padding: 5px;
+  height: 29px;
+  border-radius: 5px;
+}
+
 .form__input--date {
   font-size: 14px;
   font-family: Arial, sans-serif;

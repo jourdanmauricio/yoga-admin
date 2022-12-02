@@ -27,9 +27,9 @@ const SettingPage = ({ settings, setError }) => {
         Whatsapp: "",
         email: "",
         logo: "",
-        paragraph_color: "",
         phone: "",
-        title_color: "",
+        title_color: "#000000",
+        paragraph_color: "#000000",
       }}
       validate={(values) => {
         const errors = {};
@@ -78,6 +78,13 @@ const SettingPage = ({ settings, setError }) => {
 
         if (values.phone.length > 0 && !/^[0-9*\s()+?-]*$/.test(values.phone)) {
           errors.phone = "El teléfono solo admite números, -, +, y ()";
+        }
+
+        if (
+          values.title_color.length > 0 &&
+          !/^#?([a-fA-F0-9]){6}$/.test(values.title_color)
+        ) {
+          errors.title_color = "Formato Hexadecimal #rrggbb";
         }
 
         return errors;
@@ -138,8 +145,11 @@ const SettingPage = ({ settings, setError }) => {
             setFieldValue("email", settings.email || "");
             setFieldValue("phone", settings.phone || "");
             setFieldValue("logo", settings.logo || "");
-            setFieldValue("title_color", settings.title_color || "");
-            setFieldValue("paragraph_color", settings.paragraph_color || "");
+            setFieldValue("title_color", settings.title_color || "#000000");
+            setFieldValue(
+              "paragraph_color",
+              settings.paragraph_color || "#000000"
+            );
           }
           console.log("Settings", settings);
         }, [settings]);
@@ -195,7 +205,7 @@ const SettingPage = ({ settings, setError }) => {
                       className="form__input"
                       type="text"
                       name="Whatsapp"
-                      placeholder="https://www.wa.me/5491158046525"
+                      placeholder="https://wa.me/5491158046525?text=Hola, quiero rebir información"
                     />
                     <ErrorMessage
                       name="Whatsapp"
@@ -263,18 +273,46 @@ const SettingPage = ({ settings, setError }) => {
                   </div>
                   <div>
                     <label htmlFor="title_color">Color de títulos</label>
+                    <input
+                      className="form__input--color"
+                      type="color"
+                      value={values.title_color}
+                      onChange={(e) =>
+                        setFieldValue("title_color", e.target.value)
+                      }
+                    />
                     <Field
-                      className="form__input"
+                      value={values.title_color}
                       type="text"
+                      id="title_color"
                       name="title_color"
+                      className="form__input form__input--colorDesc"
+                    />
+                    <ErrorMessage
+                      name="title_color"
+                      render={(msg) => <div className="error">{msg}</div>}
                     />
                   </div>
                   <div>
-                    <label htmlFor="paragraph_color">Color de títulos</label>
+                    <label htmlFor="paragraph_color">Color de párrafos</label>
+                    <input
+                      className="form__input--color"
+                      type="color"
+                      value={values.paragraph_color}
+                      onChange={(e) =>
+                        setFieldValue("paragraph_color", e.target.value)
+                      }
+                    />
                     <Field
-                      className="form__input"
+                      value={values.paragraph_color}
                       type="text"
+                      id="paragraph_color"
                       name="paragraph_color"
+                      className="form__input form__input--colorDesc"
+                    />
+                    <ErrorMessage
+                      name="paragraph_color"
+                      render={(msg) => <div className="error">{msg}</div>}
                     />
                   </div>
 
