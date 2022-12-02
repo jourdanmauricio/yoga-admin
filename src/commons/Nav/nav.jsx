@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { FaPowerOff, FaBars } from "react-icons/fa";
-import logo from "../../assets/logos/logo2.svg";
+import logo from "@/assets/logos/logo2.svg";
 import { FaCog, FaRegCalendarAlt, FaUsers, FaTh } from "react-icons/fa";
 
-import { logOut } from "../../store/user";
+import { logOut } from "@/store/user";
 
 import "./nav.css";
 

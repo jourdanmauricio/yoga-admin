@@ -295,7 +295,7 @@ const NewEditStudent = ({
                     <button
                       onClick={handleCancel}
                       className="btn"
-                      type="botton"
+                      type="button"
                       disabled={isSubmitting}
                     >
                       Cancelar
