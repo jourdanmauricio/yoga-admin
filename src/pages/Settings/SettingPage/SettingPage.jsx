@@ -30,6 +30,10 @@ const SettingPage = ({ settings, setError }) => {
         phone: "",
         title_color: "#000000",
         paragraph_color: "#000000",
+        button_color: "#531253",
+        effect_color: "#531253",
+        error_color: "#f44336",
+        divisor_color: "#170312",
       }}
       validate={(values) => {
         const errors = {};
@@ -85,6 +89,39 @@ const SettingPage = ({ settings, setError }) => {
           !/^#?([a-fA-F0-9]){6}$/.test(values.title_color)
         ) {
           errors.title_color = "Formato Hexadecimal #rrggbb";
+        }
+
+        if (
+          values.paragraph_color.length > 0 &&
+          !/^#?([a-fA-F0-9]){6}$/.test(values.paragraph_color)
+        ) {
+          errors.paragraph_color = "Formato Hexadecimal #rrggbb";
+        }
+
+        if (
+          values.button_color.length > 0 &&
+          !/^#?([a-fA-F0-9]){6}$/.test(values.button_color)
+        ) {
+          errors.button_color = "Formato Hexadecimal #rrggbb";
+        }
+
+        if (
+          values.effect_color.length > 0 &&
+          !/^#?([a-fA-F0-9]){6}$/.test(values.effect_color)
+        ) {
+          errors.effect_color = "Formato Hexadecimal #rrggbb";
+        }
+        if (
+          values.error_color.length > 0 &&
+          !/^#?([a-fA-F0-9]){6}$/.test(values.error_color)
+        ) {
+          errors.error_color = "Formato Hexadecimal #rrggbb";
+        }
+        if (
+          values.divisor_color.length > 0 &&
+          !/^#?([a-fA-F0-9]){6}$/.test(values.divisor_color)
+        ) {
+          errors.divisor_color = "Formato Hexadecimal #rrggbb";
         }
 
         return errors;
@@ -145,11 +182,15 @@ const SettingPage = ({ settings, setError }) => {
             setFieldValue("email", settings.email || "");
             setFieldValue("phone", settings.phone || "");
             setFieldValue("logo", settings.logo || "");
-            setFieldValue("title_color", settings.title_color || "#000000");
+            setFieldValue("title_color", settings.title_color || "#531253");
             setFieldValue(
               "paragraph_color",
-              settings.paragraph_color || "#000000"
+              settings.paragraph_color || "#4c545d"
             );
+            setFieldValue("button_color", settings.button_color || "#531253");
+            setFieldValue("effect_color", settings.effect_color || "#531253");
+            setFieldValue("error_color", settings.error_color || "#f44336");
+            setFieldValue("divisor_color", settings.divisor_color || "#170312");
           }
           console.log("Settings", settings);
         }, [settings]);
@@ -238,7 +279,6 @@ const SettingPage = ({ settings, setError }) => {
                       render={(msg) => <div className="error">{msg}</div>}
                     />
                   </div>
-
                   <div className="settings__logo">
                     <label htmlFor="logo">Logo</label>
                     <input
@@ -254,19 +294,6 @@ const SettingPage = ({ settings, setError }) => {
                         );
                       }}
                     />
-                    {/* <img
-                      src={values.logo}
-                      alt={values.logo}
-                      className="img-thumbnail mt-2"
-                      height={200}
-                      width={200}
-                    /> */}
-                    {/* <Field
-                      className="form__input form__input--date"
-                      type="text"
-                      name="logo"
-                      placeholder="Seleccione logotipo (300px x 50)"
-                    /> */}
                   </div>
                   <div>
                     <img className="logo" src={values.logo} alt={values.logo} />
@@ -286,6 +313,7 @@ const SettingPage = ({ settings, setError }) => {
                       type="text"
                       id="title_color"
                       name="title_color"
+                      placeholder="#531253"
                       className="form__input form__input--colorDesc"
                     />
                     <ErrorMessage
@@ -308,6 +336,7 @@ const SettingPage = ({ settings, setError }) => {
                       type="text"
                       id="paragraph_color"
                       name="paragraph_color"
+                      placeholder="#4c545d"
                       className="form__input form__input--colorDesc"
                     />
                     <ErrorMessage
@@ -315,7 +344,100 @@ const SettingPage = ({ settings, setError }) => {
                       render={(msg) => <div className="error">{msg}</div>}
                     />
                   </div>
+                  <div>
+                    <label htmlFor="button_color">Color de botones</label>
+                    <input
+                      className="form__input--color"
+                      type="color"
+                      value={values.button_color}
+                      onChange={(e) =>
+                        setFieldValue("button_color", e.target.value)
+                      }
+                    />
+                    <Field
+                      value={values.button_color}
+                      type="text"
+                      id="button_color"
+                      name="button_color"
+                      placeholder="#531253"
+                      className="form__input form__input--colorDesc"
+                    />
+                    <ErrorMessage
+                      name="button_color"
+                      render={(msg) => <div className="error">{msg}</div>}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="effect_color">Color de transiciones</label>
+                    <input
+                      className="form__input--color"
+                      type="color"
+                      value={values.effect_color}
+                      onChange={(e) =>
+                        setFieldValue("effect_color", e.target.value)
+                      }
+                    />
+                    <Field
+                      value={values.effect_color}
+                      type="text"
+                      id="effect_color"
+                      name="effect_color"
+                      placeholder="#531253"
+                      className="form__input form__input--colorDesc"
+                    />
+                    <ErrorMessage
+                      name="effect_color"
+                      render={(msg) => <div className="error">{msg}</div>}
+                    />
+                  </div>
 
+                  <div>
+                    <label htmlFor="error_color">Color de errores</label>
+                    <input
+                      className="form__input--color"
+                      type="color"
+                      value={values.error_color}
+                      onChange={(e) =>
+                        setFieldValue("error_color", e.target.value)
+                      }
+                    />
+                    <Field
+                      value={values.error_color}
+                      type="text"
+                      id="error_color"
+                      name="error_color"
+                      placeholder="#f44336"
+                      className="form__input form__input--colorDesc"
+                    />
+                    <ErrorMessage
+                      name="error_color"
+                      render={(msg) => <div className="error">{msg}</div>}
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="divisor_color">Color de divisor</label>
+                    <input
+                      className="form__input--color"
+                      type="color"
+                      value={values.divisor_color}
+                      onChange={(e) =>
+                        setFieldValue("divisor_color", e.target.value)
+                      }
+                    />
+                    <Field
+                      value={values.divisor_color}
+                      type="text"
+                      id="divisor_color"
+                      name="divisor_color"
+                      placeholder="#170312"
+                      className="form__input form__input--colorDesc"
+                    />
+                    <ErrorMessage
+                      name="divisor_color"
+                      render={(msg) => <div className="error">{msg}</div>}
+                    />
+                  </div>
                   <div className="wide actions">
                     <button
                       onClick={handleCancel}
