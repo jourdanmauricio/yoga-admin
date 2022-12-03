@@ -103,16 +103,17 @@
   resize: none;
 }
 
-.form__input--colorDesc {
-  width: 40%;
-  margin-left: 20%;
-}
-
 .form__input--color {
   width: 40%;
   padding: 5px;
   height: 29px;
   border-radius: 5px;
+}
+
+.form__input--colorDesc {
+  width: 40%;
+  margin-left: 5%;
+  margin-right: 10%;
 }
 
 .form__input--date {
@@ -164,6 +165,10 @@
   display: flex;
   justify-content: center;
   gap: 2em;
+}
+
+.action {
+  text-align: right;
 }
 
 /********************/
@@ -259,5 +264,17 @@
     width: 80px;
     color: var(--gray-40);
     /* font-weight: bold; */
+  }
+
+  /**************/
+  /*   Formik   */
+  /**************/
+  .form__input--color {
+    width: 40%;
+  }
+  .form__input--colorDesc {
+    width: 50%;
+    margin-left: 10%;
+    margin-right: 0;
   }
 }

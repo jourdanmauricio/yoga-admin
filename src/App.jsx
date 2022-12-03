@@ -6,7 +6,7 @@ import { persistor, store } from "./store";
 import Login from "./pages/Login/login";
 import Home from "./pages/Home/home";
 import { PersistGate } from "redux-persist/integration/react";
-import Settings from "./pages/Settings/settings";
+import Settings from "./pages/Settings/Settings";
 // import Lessons from "./pages/Lessons/lessons";
 // import Students from "./pages/Students/students";
 const Students = React.lazy(() => import("./pages/Students/Students"));

@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import Layout from "../../commons/Layout/layout";
 import Message from "../../commons/Message/Message";
 import { helHttp } from "../../helpers/helpHttp";
-import SettingPage from "./SettingPage/SettingPage";
+import Loader from "@/commons/Loader-overlay/Loader-overlay";
 import "./settings.css";
+import Tabs from "./Tabs/Tabs";
+import { useNotification } from "../../commons/Notifications/NotificationProvider";
 
 const Settings = () => {
+  const dispatch = useNotification();
+  const [loading, setLoading] = useState(false);
   const [settings, setSettings] = useState([]);
   const [error, setError] = useState(null);
 
@@ -14,7 +18,7 @@ const Settings = () => {
 
   useEffect(() => {
     async function fetchData() {
-      // setLoading(true);
+      setLoading(true);
       try {
         const data = await api.get(url);
 
@@ -30,7 +34,7 @@ const Settings = () => {
       } catch (error) {
         console.log("error", error);
       } finally {
-        // setLoading(false);
+        setLoading(false);
       }
     }
     fetchData();
@@ -38,12 +42,12 @@ const Settings = () => {
 
   return (
     <Layout>
-      <h1>Configuración</h1>
+      <h1 className="title">Configuración</h1>
 
       {/* MESSAGE */}
       {error && <Message msg={error} closeMessage={() => setError(null)} />}
-
-      <SettingPage settings={settings} setError={setError}></SettingPage>
+      {loading && <Loader />}
+      <Tabs settings={settings} setError={setError} dispatch={dispatch}></Tabs>
     </Layout>
   );
 };
