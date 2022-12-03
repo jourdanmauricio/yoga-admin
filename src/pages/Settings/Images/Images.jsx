@@ -74,9 +74,10 @@ const Images = ({ settings, setError, dispatch, setLoading }) => {
               <div className="settings__logo">
                 <label htmlFor="logo">Logo</label>
                 <input
+                  className="input__file"
                   id="logo"
                   name="logo"
-                  accept="image/png, image/jpg, image/jpeg, image/svg"
+                  // accept="image/png, image/jpg, image/jpeg, image/svg"
                   type="file"
                   onChange={(event) => {
                     setNewLogo(event.currentTarget.files[0]);
@@ -87,6 +88,7 @@ const Images = ({ settings, setError, dispatch, setLoading }) => {
               <div>
                 <img className="logo" src={values.logo} alt={values.logo} />
               </div>
+              <hr />
 
               {/* ACTIONS */}
               <div className="wide action">
