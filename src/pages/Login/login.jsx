@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
-import "./login.css";
-
-import Title from "./components/Title/title";
-import Input from "./components/Input/input";
-import Button from "./components/Button/button";
 import { useDispatch, useSelector } from "react-redux";
-import { signIn } from "../../store/user";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../commons/spinner/spinner";
+import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { useNotification } from "../../commons/Notifications/NotificationProvider";
+import { signIn } from "../../store/user";
+
+import "./login.css";
 
 const Login = () => {
   let dispatch = useDispatch();
   // let user = useSelector((state) => state.user.user);
   let statusUser = useSelector((state) => state.user.status);
   let navigate = useNavigate();
+  const [passwordShown, setPasswordShown] = useState(false);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(null);
@@ -85,34 +85,48 @@ const Login = () => {
     <main className="container">
       {statusUser === "loading" && <Spinner />}
       <form className="login__container" onSubmit={handleSubmit} noValidate>
-        <Title text="Bienvedido!!!" />
-        <label className={`form__msg ${hasError && "form__error"}`}>
+        <label className="title-container">Bienvedido!!!</label>
+        <p className={`form__msg ${hasError && "form__error"}`}>
           Usuario o constraseña incorrecto
-        </label>
-        <Input
-          attribute={{
-            id: "email",
-            label: "Email",
-            name: "email",
-            type: "email",
-            placeholder: "Ingrese su email",
-          }}
-          handleChange={handleChange}
-          error={emailError}
-        />
-        <Input
-          attribute={{
-            id: "password",
-            label: "Contraseña",
-            name: "password",
-            type: "password",
-            placeholder: "Ingrese su contraseña",
-          }}
-          handleChange={handleChange}
-          error={passwordError}
-        />
+        </p>
+        <div className="form__group">
+          <label className="label">Email</label>
+          <input
+            onChange={(e) => handleChange(e.target.name, e.target.value)}
+            className={!emailError ? "input" : "input input__error"}
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Ingrese su email"
+          />
+          <p className={`msg ${emailError && "msg-error"}`}>{emailError}</p>
+        </div>
 
-        <Button />
+        <div className="form__group">
+          <label className="label">Email</label>
+          <i
+            className="input__icons"
+            onClick={() => setPasswordShown(!passwordShown)}
+          >
+            {passwordShown ? <FaEyeSlash /> : <FaEye />}
+          </i>
+          <input
+            onChange={(e) => handleChange(e.target.name, e.target.value)}
+            className={!passwordError ? "input" : "input input__error"}
+            type={passwordShown ? "text" : "password"}
+            id="password"
+            name="password"
+            placeholder="Ingrese su contraseña"
+          />
+
+          <p className={`msg ${passwordError && "msg-error"}`}>
+            {passwordError}
+          </p>
+        </div>
+
+        <button className="form__button" type="submit">
+          Login
+        </button>
 
         <a href="#" className="form__forgot">
           Olvidó su contraseña?
