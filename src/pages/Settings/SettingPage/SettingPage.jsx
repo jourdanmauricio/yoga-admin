@@ -34,6 +34,8 @@ const SettingPage = ({ settings, setError }) => {
         effect_color: "#531253",
         error_color: "#f44336",
         divisor_color: "#170312",
+        title_font_size: "30px",
+        paragraph_font_size: "16px",
       }}
       validate={(values) => {
         const errors = {};
@@ -124,6 +126,19 @@ const SettingPage = ({ settings, setError }) => {
           errors.divisor_color = "Formato Hexadecimal #rrggbb";
         }
 
+        if (
+          values.paragraph_font_size.length > 0 &&
+          !/^([0-9]){1,2}px$/.test(values.paragraph_font_size)
+        ) {
+          errors.paragraph_font_size = "Formato en pixeles. Ej 16px";
+        }
+        if (
+          values.title_font_size.length > 0 &&
+          !/^([0-9]){1,2}px$/.test(values.title_font_size)
+        ) {
+          errors.title_font_size = "Formato en pixeles. Ej 30px";
+        }
+
         return errors;
       }}
       onSubmit={async (values, { setSubmitting }) => {
@@ -191,6 +206,14 @@ const SettingPage = ({ settings, setError }) => {
             setFieldValue("effect_color", settings.effect_color || "#531253");
             setFieldValue("error_color", settings.error_color || "#f44336");
             setFieldValue("divisor_color", settings.divisor_color || "#170312");
+            setFieldValue(
+              "title_font_size",
+              settings.title_font_size || "30px"
+            );
+            setFieldValue(
+              "paragraph_font_size",
+              settings.paragraph_font_size || "16px"
+            );
           }
           console.log("Settings", settings);
         }, [settings]);
@@ -438,6 +461,40 @@ const SettingPage = ({ settings, setError }) => {
                       render={(msg) => <div className="error">{msg}</div>}
                     />
                   </div>
+
+                  <div>
+                    <label htmlFor="title_font_size">
+                      Tamaño de fuente para títulos
+                    </label>
+                    <Field
+                      className="form__input"
+                      type="text"
+                      name="title_font_size"
+                      placeholder="30px"
+                    />
+                    <ErrorMessage
+                      name="title_font_size"
+                      render={(msg) => <div className="error">{msg}</div>}
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="paragraph_font_size">
+                      Tamaño de fuente para párrafos
+                    </label>
+                    <Field
+                      className="form__input"
+                      type="text"
+                      name="paragraph_font_size"
+                      placeholder="16px"
+                    />
+                    <ErrorMessage
+                      name="paragraph_font_size"
+                      render={(msg) => <div className="error">{msg}</div>}
+                    />
+                  </div>
+
+                  {/* ACTIONS */}
                   <div className="wide actions">
                     <button
                       onClick={handleCancel}
