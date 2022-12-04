@@ -14,6 +14,8 @@ const Colors = ({ settings, setError, dispatch, setLoading }) => {
         effect_color: "#531253",
         error_color: "#f44336",
         divisor_color: "#170312",
+        h1_color: "#ffffff",
+        paragraph_header_color: "#ffffff",
       }}
       validate={(values) => {
         const errors = {};
@@ -56,6 +58,18 @@ const Colors = ({ settings, setError, dispatch, setLoading }) => {
         ) {
           errors.divisor_color = "Formato Hexadecimal #rrggbb";
         }
+        if (
+          values.h1_color.length > 0 &&
+          !/^#?([a-fA-F0-9]){6}$/.test(values.h1_color)
+        ) {
+          errors.h1_color = "Formato Hexadecimal #rrggbb";
+        }
+        if (
+          values.paragraph_header_color.length > 0 &&
+          !/^#?([a-fA-F0-9]){6}$/.test(values.paragraph_header_color)
+        ) {
+          errors.paragraph_header_color = "Formato Hexadecimal #rrggbb";
+        }
 
         return errors;
       }}
@@ -71,6 +85,7 @@ const Colors = ({ settings, setError, dispatch, setLoading }) => {
             type: "SUCCESS",
             message: "Configuración modificada!",
           });
+          setError(null);
         } catch (err) {
           dispatch({
             type: "ERROR",
@@ -96,6 +111,11 @@ const Colors = ({ settings, setError, dispatch, setLoading }) => {
             setFieldValue("effect_color", settings.effect_color || "#531253");
             setFieldValue("error_color", settings.error_color || "#f44336");
             setFieldValue("divisor_color", settings.divisor_color || "#170312");
+            setFieldValue("h1_color", settings.h1_color || "#ffffff");
+            setFieldValue(
+              "paragraph_header_color",
+              settings.paragraph_header_color || "#ffffff"
+            );
           }
           console.log("Settings", settings);
         }, [settings]);
@@ -236,6 +256,54 @@ const Colors = ({ settings, setError, dispatch, setLoading }) => {
                 />
                 <ErrorMessage
                   name="divisor_color"
+                  render={(msg) => <div className="error">{msg}</div>}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="h1_color">Color de H1</label>
+                <input
+                  className="form__input--color"
+                  type="color"
+                  value={values.h1_color}
+                  onChange={(e) => setFieldValue("h1_color", e.target.value)}
+                />
+                <Field
+                  value={values.h1_color}
+                  type="text"
+                  id="h1_color"
+                  name="h1_color"
+                  placeholder="#ffffff"
+                  className="form__input form__input--colorDesc"
+                />
+                <ErrorMessage
+                  name="h1_color"
+                  render={(msg) => <div className="error">{msg}</div>}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="paragraph_header_color">
+                  Color de párrafo en header
+                </label>
+                <input
+                  className="form__input--color"
+                  type="color"
+                  value={values.paragraph_header_color}
+                  onChange={(e) =>
+                    setFieldValue("paragraph_header_color", e.target.value)
+                  }
+                />
+                <Field
+                  value={values.paragraph_header_color}
+                  type="text"
+                  id="paragraph_header_color"
+                  name="paragraph_header_color"
+                  placeholder="#ffffff"
+                  className="form__input form__input--colorDesc"
+                />
+                <ErrorMessage
+                  name="paragraph_header_color"
                   render={(msg) => <div className="error">{msg}</div>}
                 />
               </div>

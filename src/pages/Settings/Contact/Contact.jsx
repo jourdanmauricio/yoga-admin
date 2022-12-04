@@ -78,6 +78,7 @@ const Contact = ({ settings, setError, dispatch, setLoading }) => {
             type: "SUCCESS",
             message: "Configuración modificada!",
           });
+          setError(null);
         } catch (err) {
           dispatch({
             type: "ERROR",
