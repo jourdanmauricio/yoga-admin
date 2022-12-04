@@ -133,7 +133,7 @@
 
 .form__input--date {
   font-size: 14px;
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif; */
 }
 
 .form__input:focus {

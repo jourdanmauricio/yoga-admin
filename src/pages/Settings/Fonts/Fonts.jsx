@@ -11,6 +11,8 @@ const Fonts = ({ settings, setError, dispatch, setLoading }) => {
       initialValues={{
         title_font_size: "30px",
         paragraph_font_size: "16px",
+        title_font_weight: 400,
+        paragraph_font_weight: 400,
       }}
       validate={(values) => {
         const errors = {};
@@ -101,6 +103,42 @@ const Fonts = ({ settings, setError, dispatch, setLoading }) => {
                   name="paragraph_font_size"
                   render={(msg) => <div className="error">{msg}</div>}
                 />
+              </div>
+
+              <div>
+                <label htmlFor="title_font_weight">
+                  Peso de fuente para títulos
+                </label>
+                <Field
+                  className="form__input"
+                  as="select"
+                  type="text"
+                  name="title_font_weight"
+                  // onChange={(e) => handleChange(e.target.value)}
+                >
+                  <option value={400}>400</option>
+                  <option value={500}>500</option>
+                  <option value={600}>600</option>
+                  <option value={700}>700</option>
+                </Field>
+              </div>
+
+              <div>
+                <label htmlFor="paragraph_font_weight">
+                  Peso de fuente para párrafos
+                </label>
+                <Field
+                  className="form__input"
+                  as="select"
+                  type="text"
+                  name="paragraph_font_weight"
+                  // onChange={(e) => handleChange(e.target.value)}
+                >
+                  <option value={400}>400</option>
+                  <option value={500}>500</option>
+                  <option value={600}>600</option>
+                  <option value={700}>700</option>
+                </Field>
               </div>
 
               {/* ACTIONS */}

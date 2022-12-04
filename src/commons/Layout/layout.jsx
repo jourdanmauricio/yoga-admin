@@ -7,6 +7,7 @@ import {
   FaAngleRight,
   FaUsers,
   FaTh,
+  FaUserCog,
 } from "react-icons/fa";
 
 import Nav from "../Nav/nav";
@@ -25,6 +26,17 @@ const Layout = (props) => {
           <button className="sidebar__item--cta" onClick={handleMinItems}>
             {minItems ? <FaAngleRight /> : <FaAngleLeft />}
           </button>
+          <NavLink
+            to="/profile"
+            className={({ isActive }) =>
+              isActive ? "item__detail item__active" : "item__detail"
+            }
+          >
+            <FaUserCog className="material__icon" />
+            <span className="icon-text">Perfil</span>
+          </NavLink>
+          <br />
+
           <NavLink
             to="/home"
             className={({ isActive }) =>

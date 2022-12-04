@@ -9,6 +9,7 @@ import { PersistGate } from "redux-persist/integration/react";
 // import Settings from "./pages/Settings/Settings";
 // import Lessons from "./pages/Lessons/lessons";
 // import Students from "./pages/Students/students";
+const Profile = React.lazy(() => import("./pages/Profile/Profile"));
 const Home = React.lazy(() => import("./pages/Home/home"));
 const Settings = React.lazy(() => import("./pages/Settings/Settings"));
 const Students = React.lazy(() => import("./pages/Students/Students"));
@@ -52,6 +53,14 @@ function App() {
           <Suspense fallback={<div />}>
             <Routes>
               <Route path="/" element={<Login />} />
+              <Route
+                path="/profile"
+                element={
+                  <AuthRoute>
+                    <Profile />
+                  </AuthRoute>
+                }
+              />
               <Route
                 path="/home"
                 element={
