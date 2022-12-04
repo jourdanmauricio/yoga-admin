@@ -1,7 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import UsersTableRow from "../UsersTableRow/UsersTableRow";
 
 const UsersTable = ({ data, setDataToEdit, deleteData }) => {
+  let user = useSelector((state) => state.user.user);
   console.log("data", data);
   return (
     <div className="table__container">
@@ -10,7 +12,7 @@ const UsersTable = ({ data, setDataToEdit, deleteData }) => {
           <tr>
             <th>Email</th>
             <th>Role</th>
-            <th>Acciones</th>
+            {user.role === "superadmin" && <th>Acciones</th>}
           </tr>
         </thead>
         <tbody>

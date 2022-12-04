@@ -54,10 +54,11 @@ const Profile = () => {
 
   const createData = (data) => {
     delete data.id;
-    data.studentQuantity = 12;
+    delete data.confirmPassword;
+
     api.post(url, { body: data }).then((res) => {
       if (!res.err) {
-        setDb([...db, res]);
+        setUsers([...users, res]);
         dispatch({
           type: "SUCCESS",
           message: "Clase creada!",
@@ -77,24 +78,22 @@ const Profile = () => {
     let endpoint = `${url}/${data.id}`;
 
     let obj = {
-      days: data.days,
-      hours: data.hours,
+      password: data.password,
     };
 
     api.put(endpoint, { body: obj }).then((res) => {
       if (!res.err) {
         dispatch({
           type: "SUCCESS",
-          message: "Clase modificada!",
+          message: "Usuario modificado!",
         });
-        let newData = db.map((el) => (el.id === data.id ? data : el));
+        let newData = users.map((el) => (el.id === data.id ? data : el));
         setUsers(newData);
       } else {
         dispatch({
           type: "ERROR",
-          message: "Error creando la clase",
+          message: "Error mnodificando el usuario",
         });
-
         setError(res);
       }
     });
@@ -116,13 +115,13 @@ const Profile = () => {
         setDataToDelete(null);
         dispatch({
           type: "SUCCESS",
-          message: "Clase eliminada!",
+          message: "Usuario eliminado!",
         });
       } else {
         setError(res);
         dispatch({
           type: "ERROR",
-          message: "Error eliminando la clase",
+          message: "Error eliminando el usuario",
         });
       }
     });
@@ -141,6 +140,7 @@ const Profile = () => {
           <p>Role:</p> <span>{user.role}</span>
         </div>
       </div>
+      <br />
       <section className="lessons__container">
         <UsersForm
           createData={createData}

@@ -1,30 +1,45 @@
 import React, { useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useSelector } from "react-redux";
 
 const initialValues = {
   id: "",
   email: "",
-  role: "",
+  role: "admin",
   password: "",
-  newPassword: "",
+  confirmPassword: "",
 };
 
 const UsersForm = ({ createData, updateData, dataToEdit, setDataToEdit }) => {
+  let user = useSelector((state) => state.user.user);
   return (
     <>
       <div>
         <h3>
-          {dataToEdit?.id !== "" ? "Modificar Usuario" : "Agregar Usuario"}
+          {user.role === "admin"
+            ? "Editar Perfil"
+            : dataToEdit?.id !== ""
+            ? "Modificar Usuario"
+            : "Agregar Usuario"}
         </h3>
         <Formik
           initialValues={initialValues}
           validate={(values) => {
+            console.log("Values", values);
             const errors = {};
             if (!values.email) {
               errors.email = "Requerido";
             }
-            if (!values.role) {
-              errors.role = "Requerido";
+
+            if (!values.password) {
+              errors.password = "Requerido";
+            } else if (values.password.length < 8) {
+              errors.password = "Mínimo 8 caracteres";
+            }
+            if (!values.confirmPassword) {
+              errors.confirmPassword = "Requerido";
+            } else if (values.password !== values.confirmPassword) {
+              errors.confirmPassword = "El password no coincide";
             }
 
             return errors;
@@ -40,14 +55,15 @@ const UsersForm = ({ createData, updateData, dataToEdit, setDataToEdit }) => {
             setSubmitting(false);
           }}
         >
-          {({ isSubmitting, setFieldValue }) => {
+          {({ isSubmitting, setFieldValue, values }) => {
             useEffect(() => {
-              if (dataToEdit) {
+              console.log("dataToEdit", dataToEdit);
+              if (dataToEdit.id !== "") {
                 setFieldValue("id", dataToEdit.id);
                 setFieldValue("email", dataToEdit.email);
                 setFieldValue("role", dataToEdit.role);
                 setFieldValue("password", "");
-                setFieldValue("newPassword", "");
+                setFieldValue("confirmPassword", "");
               }
             }, [dataToEdit]);
             return (
@@ -61,6 +77,7 @@ const UsersForm = ({ createData, updateData, dataToEdit, setDataToEdit }) => {
                         type="email"
                         name="email"
                         placeholder="user@domain.com"
+                        disabled={values.id}
                       />
                       <ErrorMessage
                         name="email"
@@ -73,7 +90,9 @@ const UsersForm = ({ createData, updateData, dataToEdit, setDataToEdit }) => {
                         className="form__input"
                         type="text"
                         name="role"
+                        value="admin"
                         placeholder="admin"
+                        disabled
                       />
                       <ErrorMessage
                         name="role"
@@ -94,15 +113,17 @@ const UsersForm = ({ createData, updateData, dataToEdit, setDataToEdit }) => {
                       />
                     </div>
                     <div>
-                      <label htmlFor="rnewPassword">New Password</label>
+                      <label htmlFor="confirmPassword">
+                        Confirmación Password
+                      </label>
                       <Field
                         className="form__input"
                         type="password"
-                        name="newPassword"
+                        name="confirmPassword"
                         placeholder="********"
                       />
                       <ErrorMessage
-                        name="newPassword"
+                        name="confirmPassword"
                         render={(msg) => <div className="error">{msg}</div>}
                       />
                     </div>

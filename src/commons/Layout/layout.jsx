@@ -12,8 +12,10 @@ import {
 
 import Nav from "../Nav/nav";
 import "./layout.css";
+import { useSelector } from "react-redux";
 
 const Layout = (props) => {
+  let user = useSelector((state) => state.user.user);
   const [minItems, setMinItems] = useState(false);
   const handleMinItems = () => {
     setMinItems(!minItems);
@@ -36,7 +38,6 @@ const Layout = (props) => {
             <span className="icon-text">Perfil</span>
           </NavLink>
           <br />
-
           <NavLink
             to="/home"
             className={({ isActive }) =>
@@ -46,16 +47,20 @@ const Layout = (props) => {
             <FaTh className="material__icon" />
             <span className="icon-text">Dashboard</span>
           </NavLink>
-          <br />
-          <NavLink
-            to="/settings"
-            className={({ isActive }) =>
-              isActive ? "item__detail item__active" : "item__detail"
-            }
-          >
-            <FaCog className="material__icon" />
-            <span className="icon-text">Configuración</span>
-          </NavLink>
+          {user.role === "superadmin" && (
+            <>
+              <br />
+              <NavLink
+                to="/settings"
+                className={({ isActive }) =>
+                  isActive ? "item__detail item__active" : "item__detail"
+                }
+              >
+                <FaCog className="material__icon" />
+                <span className="icon-text">Configuración</span>
+              </NavLink>
+            </>
+          )}
           <br />
           <NavLink
             className={({ isActive }) =>

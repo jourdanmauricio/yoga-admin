@@ -38,8 +38,15 @@ let NotImplemented = () => {
 
 const AuthRoute = (props) => {
   let user = useSelector((state) => state.user.user);
-  const auth = ["admin", "superadmin"];
-  if (!auth.includes(user.role)) {
+  if (user.role !== "admin" && user.role !== "superadmin") {
+    return <Navigate to="/" />;
+  }
+  return props.children;
+};
+
+const AuthSuperadminRoute = (props) => {
+  let user = useSelector((state) => state.user.user);
+  if (user.role !== "superadmin") {
     return <Navigate to="/" />;
   }
   return props.children;
@@ -72,9 +79,9 @@ function App() {
               <Route
                 path="/settings"
                 element={
-                  <AuthRoute>
+                  <AuthSuperadminRoute>
                     <Settings />
-                  </AuthRoute>
+                  </AuthSuperadminRoute>
                 }
               />
               <Route

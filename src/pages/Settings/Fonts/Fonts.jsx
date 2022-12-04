@@ -48,6 +48,8 @@ const Fonts = ({ settings, setError, dispatch, setLoading }) => {
         return errors;
       }}
       onSubmit={async (values, { setSubmitting }) => {
+        console.log("Values", values);
+
         try {
           setLoading(true);
           const data = await api.put(url, { body: { data: values } });
