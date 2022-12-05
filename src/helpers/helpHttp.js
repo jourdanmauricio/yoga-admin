@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-export const helHttp = () => {
+export const helpHttp = () => {
   let user = useSelector((state) => state.user.user);
 
   const customFetch = async (endpoint, options) => {

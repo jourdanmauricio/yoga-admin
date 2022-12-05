@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../commons/Layout/layout";
 import Message from "../../commons/Message/Message";
-import { helHttp } from "../../helpers/helpHttp";
+import { helpHttp } from "../../helpers/helpHttp";
 import Loader from "@/commons/Loader-overlay/Loader-overlay";
 import "./settings.css";
 import Tabs from "./Tabs/Tabs";
@@ -13,7 +13,7 @@ const Settings = () => {
   const [settings, setSettings] = useState([]);
   const [error, setError] = useState(null);
 
-  const api = helHttp();
+  const api = helpHttp();
   const url = `${import.meta.env.VITE_BACKEND_API}/settings`;
 
   useEffect(() => {

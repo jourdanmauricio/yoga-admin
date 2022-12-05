@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { formatDateTable } from "@/helpers/helpFunctions";
 import "./studentView.css";
-import { helHttp } from "@/helpers/helpHttp";
+import { helpHttp } from "@/helpers/helpHttp";
 
 const StudentViewForm = ({ currentData, handleCancel }) => {
   const [history, setHistory] = useState([]);
-  const api = helHttp();
+  const api = helpHttp();
   useEffect(() => {
     async function fetchData() {
       const url = `${import.meta.env.VITE_BACKEND_API}/customers-history/${
@@ -30,11 +30,13 @@ const StudentViewForm = ({ currentData, handleCancel }) => {
         <p className="info__feature">Email:</p>
         <p> {currentData.email}</p>
         <p className="info__feature">Inicio: </p>
-        <p>{formatDateTable(currentData.start)}</p>
+        <p>{currentData.start ? formatDateTable(currentData.start) : ""}</p>
         <p className="info__feature">Dirección: </p>
         <p>{currentData.address}</p>
         <p className="info__feature">Nacimiento: </p>
-        <p>{formatDateTable(currentData.birthday)}</p>
+        <p>
+          {currentData.birthday ? formatDateTable(currentData.birthday) : ""}
+        </p>
         <p className="info__feature">Edad: </p>
         <p>{currentData.age}</p>
         <p className="info__feature">DNI: </p>

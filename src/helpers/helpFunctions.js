@@ -3,8 +3,8 @@ function padTo2Digits(num) {
 }
 export function formatDateTable(date) {
   const newDate = [
-    padTo2Digits(new Date(date).getDate()),
-    padTo2Digits(new Date(date).getMonth() + 1),
+    padTo2Digits(new Date(date).getUTCDate()),
+    padTo2Digits(new Date(date).getUTCMonth() + 1),
     new Date(date).getFullYear(),
   ].join("/");
 
@@ -12,11 +12,13 @@ export function formatDateTable(date) {
 }
 
 export function formatDate(date) {
-  return [
+  const newDate = [
     new Date(date).getFullYear(),
-    padTo2Digits(new Date(date).getMonth() + 1),
-    padTo2Digits(new Date(date).getDate()),
+    padTo2Digits(new Date(date).getUTCMonth() + 1),
+    padTo2Digits(new Date(date).getUTCDate()),
   ].join("-");
+
+  return newDate === "1969/01/01" ? "" : newDate;
 }
 
 export function getAge(date) {

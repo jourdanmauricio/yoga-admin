@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../commons/Layout/layout";
 import { useNotification } from "../../commons/Notifications/NotificationProvider";
-import { helHttp } from "../../helpers/helpHttp";
+import { helpHttp } from "../../helpers/helpHttp";
 import StudentsTable from "./components/StudentsTable/StudentsTable";
 import StudentDeleteForm from "./components/StudentDeleteForm/StudentDeleteForm";
 import { useModal } from "../../hooks/useModal";
@@ -11,6 +11,7 @@ import NewEditStudent from "./components/NewEditStudent/NewEditStudent";
 import Message from "../../commons/Message/Message";
 import StudentViewForm from "./components/StudentViewForm/StudentViewForm";
 import "./students.css";
+import StudentHistory from "./components/StudentHistory/StudentHistory";
 
 const keys = ["name", "email", "dni", "phone"];
 
@@ -28,7 +29,7 @@ const Students = () => {
   const [isOpenModalView, openModalView, closeModalView] = useModal(false);
   const dispatch = useNotification();
 
-  const api = helHttp();
+  const api = helpHttp();
   const url = `${import.meta.env.VITE_BACKEND_API}/customers`;
 
   const search = (data) => {
@@ -101,6 +102,8 @@ const Students = () => {
   };
 
   const handleAction = (action, data) => {
+    console.log("Action", action);
+    console.log("currentData", data);
     setCurrentData(data);
     setAction(action);
     if (action === "DELETE") openModal();
@@ -151,13 +154,25 @@ const Students = () => {
       )}
 
       {action && (action === "NEW" || action === "EDIT") && (
-        <NewEditStudent
-          handleCancel={handleCancel}
-          currentData={currentData}
-          createStudent={createData}
-          updateStudent={updateData}
-          setError={setError}
-        />
+        <div>
+          <NewEditStudent
+            handleCancel={handleCancel}
+            currentData={currentData}
+            createStudent={createData}
+            updateStudent={updateData}
+            setError={setError}
+          />
+        </div>
+      )}
+
+      {action && action === "EDIT" && (
+        <div>
+          <StudentHistory
+            handleCancel={handleCancel}
+            currentData={currentData}
+            setError={setError}
+          />
+        </div>
       )}
 
       {loading && <Loader />}

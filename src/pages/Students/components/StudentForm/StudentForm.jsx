@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { helHttp } from "@/helpers/helpHttp";
+import { helpHttp } from "@/helpers/helpHttp";
 import { useNotification } from "@/commons/Notifications/NotificationProvider";
 import Loader from "@/components/Loader/Loader";
 import { useNavigate } from "react-router-dom";
@@ -24,7 +24,7 @@ const StudentForm = ({ dataToEdit, setDataToEdit }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useNotification();
 
-  let api = helHttp();
+  let api = helpHttp();
   let url = `${import.meta.env.VITE_BACKEND_API}/customers`;
 
   const handleCancel = () => navigate("/students");

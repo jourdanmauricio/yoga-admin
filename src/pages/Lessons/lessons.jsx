@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "../../commons/Layout/layout";
 import Message from "../../commons/Message/Message";
 import Loader from "../../components/Loader/Loader";
-import { helHttp } from "../../helpers/helpHttp";
+import { helpHttp } from "../../helpers/helpHttp";
 import LessonsDeleteForm from "./components/LessonsDeleteForm/LessonsDeleteForm";
 import LessonsForm from "./components/LessonsForm/LessonsForm";
 import LessonsTable from "./components/LessonsTable/LessonsTable";
@@ -22,7 +22,7 @@ const Lessons = () => {
   const [dataToEdit, setDataToEdit] = useState(initialState);
   const [dataToDelete, setDataToDelete] = useState(null);
 
-  let api = helHttp();
+  let api = helpHttp();
   const url = `${import.meta.env.VITE_BACKEND_API}/lessons`;
 
   useEffect(() => {

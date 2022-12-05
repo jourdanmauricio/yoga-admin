@@ -5,7 +5,7 @@ import Layout from "../../commons/Layout/layout";
 import Message from "../../commons/Message/Message";
 import { Modal } from "../../commons/Modal/Modal";
 import { useNotification } from "../../commons/Notifications/NotificationProvider";
-import { helHttp } from "../../helpers/helpHttp";
+import { helpHttp } from "../../helpers/helpHttp";
 import { useModal } from "../../hooks/useModal";
 
 import "./profile.css";
@@ -32,7 +32,7 @@ const Profile = () => {
   const [dataToEdit, setDataToEdit] = useState(initialState);
   const [dataToDelete, setDataToDelete] = useState(null);
 
-  let api = helHttp();
+  let api = helpHttp();
   const url = `${import.meta.env.VITE_BACKEND_API}/users`;
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { helHttp } from "@/helpers/helpHttp";
+import { helpHttp } from "@/helpers/helpHttp";
 import { useNotification } from "@/commons/Notifications/NotificationProvider";
 import Loader from "@/components/Loader/Loader";
 import { formatDate, getAge } from "@/helpers/helpFunctions";
@@ -13,6 +13,7 @@ const initialValues = {
   phone: "",
   address: "",
   birthday: "",
+  start: "",
   age: "",
   dni: "",
   certificate: false,
@@ -32,7 +33,7 @@ const NewEditStudent = ({
   const [baja, setBaja] = useState(false);
   const dispatch = useNotification();
 
-  const api = helHttp();
+  const api = helpHttp();
   const url = `${import.meta.env.VITE_BACKEND_API}/customers`;
   const urlHist = `${import.meta.env.VITE_BACKEND_API}/customers-history`;
 
@@ -58,6 +59,10 @@ const NewEditStudent = ({
           errors.phone = "El teléfono solo admite números, -, +, y ()";
         }
 
+        if (!values.dni) {
+          errors.dni = "Requerido";
+        }
+
         if (values.comment.length > 0 && !/^.{1,255}$/.test(values.comment)) {
           errors.comment = "El comentario no puede exceder los 255 caracteres";
         }
@@ -68,10 +73,11 @@ const NewEditStudent = ({
         setLoading(true);
         const obj = Object.assign({}, values);
         delete obj.id;
-        obj.dni = obj.dni.toString();
         for (const prop in obj) {
           if (obj[prop] === "") obj[prop] = null;
         }
+        if (obj.start === null) delete obj.start;
+        obj.dni = obj.dni.toString();
         if (obj.birthday) obj.age = getAge(obj.birthday);
 
         let errorMessage;
@@ -90,7 +96,6 @@ const NewEditStudent = ({
               throw dataHist;
             }
           }
-          // if baja insert into customer_history
 
           if (currentData) {
             const endpoint = `${url}/${currentData.id}`;
@@ -131,10 +136,14 @@ const NewEditStudent = ({
 
             let age;
             let birthday;
+            let start;
             if (currentData.birthday) {
               age = getAge(currentData.birthday);
               birthday = formatDate(currentData.birthday);
+              console.log("start", start);
             }
+
+            if (currentData.start) start = formatDate(currentData.start);
 
             setFieldValue("id", currentData.id || "");
             setFieldValue("status", currentData.status || "");
@@ -143,6 +152,7 @@ const NewEditStudent = ({
             setFieldValue("phone", currentData.phone || "");
             setFieldValue("address", currentData.address || "");
             setFieldValue("birthday", birthday || "");
+            setFieldValue("start", start || "");
             setFieldValue("age", age || "");
             setFieldValue("dni", currentData.dni || "");
             setFieldValue("certificate", currentData.certificate || "");
@@ -160,8 +170,6 @@ const NewEditStudent = ({
           if (value === "Baja") {
             setBaja(true);
           }
-
-          // if baja setBaja
         };
 
         return (
@@ -170,15 +178,6 @@ const NewEditStudent = ({
             {!loading && (
               <Form className="form__container">
                 <div className="formulario">
-                  {/* <div>
-                    <label htmlFor="id">Id</label>
-                    <Field
-                      className="form__input"
-                      type="text"
-                      name="id"
-                      disabled
-                    />
-                  </div> */}
                   <div>
                     <label htmlFor="status">Estado</label>
                     <Field
@@ -232,7 +231,7 @@ const NewEditStudent = ({
                       render={(msg) => <div className="error">{msg}</div>}
                     />
                   </div>
-                  <div>
+                  <div className="wide">
                     <label htmlFor="address">Dirección</label>
                     <Field
                       className="form__input"
@@ -250,15 +249,15 @@ const NewEditStudent = ({
                       placeholder="20/10/2000"
                     />
                   </div>
-                  {/* <div>
-                    <label htmlFor="age">Edad</label>
+                  <div>
+                    <label htmlFor="start">Fecha de alta</label>
                     <Field
-                      className="form__input"
-                      type="number"
-                      name="age"
-                      placeholder="99"
+                      className="form__input form__input--date"
+                      type="date"
+                      name="start"
                     />
-                  </div> */}
+                  </div>
+
                   <div>
                     <label htmlFor="dni">DNI</label>
                     <Field
@@ -266,6 +265,10 @@ const NewEditStudent = ({
                       type="number"
                       name="dni"
                       placeholder="99999999"
+                    />
+                    <ErrorMessage
+                      name="dni"
+                      render={(msg) => <div className="error">{msg}</div>}
                     />
                   </div>
                   <div className="check__container">
@@ -291,6 +294,7 @@ const NewEditStudent = ({
                       render={(msg) => <div className="error">{msg}</div>}
                     />
                   </div>
+
                   <div className="wide actions">
                     <button
                       onClick={handleCancel}

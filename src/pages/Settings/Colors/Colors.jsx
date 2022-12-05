@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { helHttp } from "../../../helpers/helpHttp";
+import { helpHttp } from "../../../helpers/helpHttp";
 
 const Colors = ({ settings, setError, dispatch, setLoading }) => {
-  const api = helHttp();
+  const api = helpHttp();
   const url = `${import.meta.env.VITE_BACKEND_API}/settings`;
   return (
     <Formik

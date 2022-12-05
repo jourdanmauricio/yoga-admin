@@ -2,7 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useNotification } from "../../../commons/Notifications/NotificationProvider";
 import Loader from "@/components/Loader/Loader";
-import { helHttp } from "../../../helpers/helpHttp";
+import { helpHttp } from "../../../helpers/helpHttp";
 import { useSelector } from "react-redux";
 
 const SettingPage = ({ settings, setError }) => {
@@ -12,7 +12,7 @@ const SettingPage = ({ settings, setError }) => {
   const [newLogo, setNewLogo] = useState(null);
   const dispatch = useNotification();
 
-  const api = helHttp();
+  const api = helpHttp();
   const url = `${import.meta.env.VITE_BACKEND_API}/settings`;
 
   const handleCancel = () => {
