@@ -16,6 +16,8 @@ const Colors = ({ settings, setError, dispatch, setLoading }) => {
         divisor_color: "#170312",
         h1_color: "#ffffff",
         paragraph_header_color: "#ffffff",
+        background_color: "#eaeaea",
+        background_footer_color: "#9fabb2",
       }}
       validate={(values) => {
         const errors = {};
@@ -70,6 +72,18 @@ const Colors = ({ settings, setError, dispatch, setLoading }) => {
         ) {
           errors.paragraph_header_color = "Formato Hexadecimal #rrggbb";
         }
+        if (
+          values.background_color.length > 0 &&
+          !/^#?([a-fA-F0-9]){6}$/.test(values.background_color)
+        ) {
+          errors.background_color = "Formato Hexadecimal #rrggbb";
+        }
+        if (
+          values.background_footer_color.length > 0 &&
+          !/^#?([a-fA-F0-9]){6}$/.test(values.background_footer_color)
+        ) {
+          errors.background_footer_color = "Formato Hexadecimal #rrggbb";
+        }
 
         return errors;
       }}
@@ -115,6 +129,14 @@ const Colors = ({ settings, setError, dispatch, setLoading }) => {
             setFieldValue(
               "paragraph_header_color",
               settings.paragraph_header_color || "#ffffff"
+            );
+            setFieldValue(
+              "background_color",
+              settings.background_color || "#eaeaea"
+            );
+            setFieldValue(
+              "background_footer_color",
+              settings.background_footer_color || "#9fabb2"
             );
           }
           console.log("Settings", settings);
@@ -308,6 +330,55 @@ const Colors = ({ settings, setError, dispatch, setLoading }) => {
                 />
               </div>
 
+              <div>
+                <label htmlFor="background_color">Color de fondo</label>
+                <input
+                  className="form__input--color"
+                  type="color"
+                  value={values.background_color}
+                  onChange={(e) =>
+                    setFieldValue("background_color", e.target.value)
+                  }
+                />
+                <Field
+                  value={values.background_color}
+                  type="text"
+                  id="background_color"
+                  name="background_color"
+                  placeholder="#eaeaea"
+                  className="form__input form__input--colorDesc"
+                />
+                <ErrorMessage
+                  name="background_color"
+                  render={(msg) => <div className="error">{msg}</div>}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="background_footer_color">
+                  Color de fondo de footer
+                </label>
+                <input
+                  className="form__input--color"
+                  type="color"
+                  value={values.background_footer_color}
+                  onChange={(e) =>
+                    setFieldValue("background_footer_color", e.target.value)
+                  }
+                />
+                <Field
+                  value={values.background_footer_color}
+                  type="text"
+                  id="background_footer_color"
+                  name="background_footer_color"
+                  placeholder="#9fabb2"
+                  className="form__input form__input--colorDesc"
+                />
+                <ErrorMessage
+                  name="background_footer_color"
+                  render={(msg) => <div className="error">{msg}</div>}
+                />
+              </div>
               {/* ACTIONS */}
               <div className="wide action">
                 <button
