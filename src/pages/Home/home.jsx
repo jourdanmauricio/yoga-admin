@@ -1,5 +1,6 @@
 import React from "react";
 import Layout from "../../commons/Layout/layout";
+import Tabs from "./components/Tabs/Tabs";
 
 import "./home.css";
 
@@ -11,8 +12,7 @@ const Home = () => {
         <h2>Alumnos x clase</h2>
         <h2>Sin certificado</h2>
         <h2>Cumpleaños del mes</h2>
-        <h2>Newsletter</h2>
-        <h2>Contactos</h2>
+        <Tabs />
       </Layout>
     </>
   );

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../../commons/Layout/layout";
-import Message from "../../commons/Message/Message";
-import { helpHttp } from "../../helpers/helpHttp";
+import Layout from "@/commons/Layout/layout";
+import Message from "@/commons/Message/Message";
 import Loader from "@/commons/Loader-overlay/Loader-overlay";
+import { helpHttp } from "@/helpers/helpHttp";
 import "./settings.css";
 import Tabs from "./Tabs/Tabs";
 import { useNotification } from "../../commons/Notifications/NotificationProvider";

@@ -200,6 +200,11 @@
   border-spacing: 0;
   border-collapse: collapse;
   width: 100%;
+  word-break: break-word;
+}
+
+.table th {
+  min-width: 100px;
 }
 
 .table th,
@@ -252,7 +257,7 @@
   }
 }
 
-@media (max-width: 769px) {
+@media (max-width: 950px) {
   .table__container {
     border: none;
     padding: 0;
@@ -264,23 +269,33 @@
     display: flex;
     flex-direction: column;
     border: 1px solid var(--gray-30);
-    padding: 1rem;
+    padding: 0.5rem 0;
     margin-bottom: 1rem;
   }
 
   .table td {
     text-align: left;
+    word-break: normal;
   }
 
   .table td[data-titulo] {
     display: flex;
   }
 
+  .table__contact td:nth-child(5) {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .table__contact td:last-child {
+    text-align: center;
+    border-bottom: none;
+  }
+
   .table td[data-titulo]::before {
     content: attr(data-titulo);
-    width: 80px;
+    width: 100px;
     color: var(--gray-40);
-    /* font-weight: bold; */
   }
 
   /**************/
