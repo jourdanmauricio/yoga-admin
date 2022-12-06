@@ -1,13 +1,20 @@
 import React from "react";
 import { useState } from "react";
-import { FaRegEnvelope, FaRegKeyboard } from "react-icons/fa";
+import {
+  FaRegCalendarAlt,
+  FaRegEnvelope,
+  FaRegKeyboard,
+  FaCertificate,
+} from "react-icons/fa";
+import BirthdayMonth from "../birthdayMonth/BirthdayMonth";
 import Contact from "../Contact/Contact";
 import Newsletter from "../Newsletter/Newsletter";
+import NoCertificate from "../NoCertificate/NoCertificate";
 import styles from "./tabs.module.css";
 
 // FaRegBell;
 
-const Tabs = ({ settings, setError, dispatch }) => {
+const Tabs = ({ noCertificate, birthdayMonth }) => {
   const [toggleState, setToggleState] = useState(1);
   const [loading, setLoading] = useState(false);
 
@@ -39,8 +46,7 @@ const Tabs = ({ settings, setError, dispatch }) => {
           <FaRegKeyboard color="green" />
           <span>Newsletter</span>
         </div>
-      </div>
-      {/* <div
+        <div
           onClick={() => toggleTab(3)}
           className={
             toggleState === 3
@@ -48,9 +54,10 @@ const Tabs = ({ settings, setError, dispatch }) => {
               : styles.tabs
           }
         >
-          <FaFont color="black" />
-          <span>Fuentes</span>
+          <FaCertificate color="black" />
+          <span>Sin certificado</span>
         </div>
+
         <div
           onClick={() => toggleTab(4)}
           className={
@@ -59,10 +66,10 @@ const Tabs = ({ settings, setError, dispatch }) => {
               : styles.tabs
           }
         >
-          <FaRegImage color="blue" />
-          <span>Imagenes</span>
+          <FaRegCalendarAlt color="blue" />
+          <span>Cumple del mes</span>
         </div>
-        </div> */}
+      </div>
       <div className={styles.content__tabs}>
         {loading && <Loader />}
         <div
@@ -83,19 +90,14 @@ const Tabs = ({ settings, setError, dispatch }) => {
         >
           <Newsletter />
         </div>
-        {/* <div
+        <div
           className={
             toggleState === 3
               ? `${styles.content} ${styles.active__content}`
               : styles.content
           }
         >
-          <Fonts
-            settings={settings}
-            setError={setError}
-            dispatch={dispatch}
-            setLoading={setLoading}
-          ></Fonts>
+          <NoCertificate data={noCertificate} />
         </div>
         <div
           className={
@@ -104,13 +106,8 @@ const Tabs = ({ settings, setError, dispatch }) => {
               : styles.content
           }
         >
-          <Images
-            settings={settings}
-            setError={setError}
-            dispatch={dispatch}
-            setLoading={setLoading}
-          ></Images>
-        </div>*/}
+          <BirthdayMonth data={birthdayMonth} />
+        </div>
       </div>
     </div>
   );

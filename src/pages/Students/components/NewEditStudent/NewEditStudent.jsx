@@ -78,6 +78,7 @@ const NewEditStudent = ({
         }
         if (obj.start === null) delete obj.start;
         obj.dni = obj.dni.toString();
+        console.log("obj.birthday", obj.birthday);
         if (obj.birthday) obj.age = getAge(obj.birthday);
 
         let errorMessage;

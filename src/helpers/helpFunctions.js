@@ -11,6 +11,16 @@ export function formatDateTable(date) {
   return newDate === "31/12/1969" ? "" : newDate;
 }
 
+export function getBirthday(date) {
+  const newDate = [
+    padTo2Digits(new Date(date).getUTCDate()),
+    padTo2Digits(new Date(date).getUTCMonth() + 1),
+    new Date().getFullYear(),
+  ].join("/");
+
+  return newDate === "31/12/1969" ? "" : newDate;
+}
+
 export function formatDate(date) {
   const newDate = [
     new Date(date).getFullYear(),
@@ -22,10 +32,10 @@ export function formatDate(date) {
 }
 
 export function getAge(date) {
-  const today = new Date();
-  const birthday = new Date(date);
-  const age = today.getFullYear() - birthday.getFullYear();
-  const m = today.getMonth() - birthday.getMonth();
+  let today = new Date();
+  let birthday = new Date(date);
+  let age = today.getFullYear() - birthday.getFullYear();
+  let m = today.getMonth() - birthday.getMonth();
 
   if (m < 0 || (m === 0 && today.getDate() < birthday.getDate())) {
     age--;
