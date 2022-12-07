@@ -49,9 +49,6 @@ const Profile = () => {
     });
   }, []);
 
-  console.log("User", user);
-  console.log("Users", users);
-
   const createData = (data) => {
     delete data.id;
     delete data.confirmPassword;
@@ -63,7 +60,6 @@ const Profile = () => {
           type: "SUCCESS",
           message: "Clase creada!",
         });
-        console.log("Clase creada");
       } else {
         dispatch({
           type: "ERROR",

@@ -29,8 +29,6 @@ const StudentForm = ({ dataToEdit, setDataToEdit }) => {
 
   const handleCancel = () => navigate("/students");
 
-  console.log("dataToEdit", dataToEdit);
-
   return (
     <>
       <h1 className="title">
@@ -77,7 +75,6 @@ const StudentForm = ({ dataToEdit, setDataToEdit }) => {
           }
 
           if (dataToEdit) {
-            console.log("obj", obj);
             const endpoint = `${url}/${dataToEdit.id}`;
 
             api.put(endpoint, { body: obj }).then((res) => {

@@ -12,8 +12,6 @@ import Newsletter from "../Newsletter/Newsletter";
 import NoCertificate from "../NoCertificate/NoCertificate";
 import styles from "./tabs.module.css";
 
-// FaRegBell;
-
 const Tabs = ({ noCertificate, birthdayMonth }) => {
   const [toggleState, setToggleState] = useState(1);
   const [loading, setLoading] = useState(false);

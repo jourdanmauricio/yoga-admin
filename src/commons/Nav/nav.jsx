@@ -3,7 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { FaPowerOff, FaBars } from "react-icons/fa";
 import logo from "@/assets/logos/logo2.svg";
-import { FaCog, FaRegCalendarAlt, FaUsers, FaTh } from "react-icons/fa";
+import {
+  FaUserCog,
+  FaCog,
+  FaRegCalendarAlt,
+  FaUsers,
+  FaTh,
+} from "react-icons/fa";
 
 import { logOut } from "@/store/user";
 
@@ -46,6 +52,18 @@ const Nav = () => {
         // className="mobile-menu inactive"
       >
         <ul>
+          <li>
+            <NavLink
+              to="/home"
+              className={({ isActive }) =>
+                isActive ? "item__detail item__active" : "item__detail"
+              }
+            >
+              <FaUserCog className="material__icon" />
+              <span className="icon-text">Perfil</span>
+            </NavLink>
+          </li>
+
           <li>
             <NavLink
               to="/home"

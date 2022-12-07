@@ -4,7 +4,6 @@ import UsersTableRow from "../UsersTableRow/UsersTableRow";
 
 const UsersTable = ({ data, setDataToEdit, deleteData }) => {
   let user = useSelector((state) => state.user.user);
-  console.log("data", data);
   return (
     <div className="table__container">
       <table className="table">

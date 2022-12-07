@@ -54,7 +54,6 @@ const Images = ({ settings, setError, dispatch, setLoading }) => {
             message: "Error modificando la configuración",
           });
           setError(`${err.statusCode}: ${err.error} - ${err.message}`);
-          console.log(err);
         } finally {
           setSubmitting(false);
           setLoading(false);
@@ -66,7 +65,6 @@ const Images = ({ settings, setError, dispatch, setLoading }) => {
           if (settings) {
             setFieldValue("logo", settings.logo || "");
           }
-          console.log("Settings", settings);
         }, [settings]);
 
         return (

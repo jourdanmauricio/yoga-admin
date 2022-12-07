@@ -78,7 +78,6 @@ const NewEditStudent = ({
         }
         if (obj.start === null) delete obj.start;
         obj.dni = obj.dni.toString();
-        console.log("obj.birthday", obj.birthday);
         if (obj.birthday) obj.age = getAge(obj.birthday);
 
         let errorMessage;
@@ -132,16 +131,12 @@ const NewEditStudent = ({
       {({ isSubmitting, setFieldValue }) => {
         useEffect(() => {
           if (currentData) {
-            // console.log("birthday", currentData.birthday);
-            // console.log("birthday", formatDate(currentData.birthday));
-
             let age;
             let birthday;
             let start;
             if (currentData.birthday) {
               age = getAge(currentData.birthday);
               birthday = formatDate(currentData.birthday);
-              console.log("start", start);
             }
 
             if (currentData.start) start = formatDate(currentData.start);
@@ -162,7 +157,6 @@ const NewEditStudent = ({
         }, [currentData]);
 
         const handleChange = (value) => {
-          console.log("Change", value);
           setFieldValue("status", value);
 
           if (value === "Activo") {

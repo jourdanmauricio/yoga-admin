@@ -32,7 +32,7 @@ const Settings = () => {
           setSettings(obj);
         }
       } catch (error) {
-        console.log("error", error);
+        setError(`${err.statusCode}: ${err.error} - ${err.message}`);
       } finally {
         setLoading(false);
       }

@@ -49,7 +49,6 @@ const Lessons = () => {
           type: "SUCCESS",
           message: "Clase creada!",
         });
-        console.log("Clase creada");
       } else {
         dispatch({
           type: "ERROR",

@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../../commons/Layout/layout";
-import Tabs from "./components/Tabs/Tabs";
 import { helpHttp } from "@/helpers/helpHttp";
-import "./home.css";
+import Tabs from "./components/Tabs/Tabs";
+import Layout from "../../commons/Layout/layout";
+import Message from "@/commons/Message/Message";
+import Loader from "@/commons/Loader-overlay/Loader-overlay";
 
 const Home = () => {
   const [noCertificate, setNoCertificate] = useState([]);
   const [birthdayMonth, setBirthdayMonth] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const api = helpHttp();
   const url = `${import.meta.env.VITE_BACKEND_API}/customers`;
 
   useEffect(() => {
     async function fetchData() {
-      // setLoading(true);
+      setLoading(true);
       try {
         const data = await api.get(url);
         if (data.statusCode) {
@@ -35,7 +38,7 @@ const Home = () => {
       } catch (err) {
         setError(`${err.statusCode}: ${err.error} - ${err.message}`);
       } finally {
-        // setLoading(false);
+        setLoading(false);
       }
     }
     fetchData();
@@ -44,6 +47,8 @@ const Home = () => {
     <>
       <Layout>
         <h1 className="title">Dashborad</h1>
+        {error && <Message msg={error} closeMessage={() => setError(null)} />}
+        {loading && <Loader />}
         <Tabs noCertificate={noCertificate} birthdayMonth={birthdayMonth} />
       </Layout>
     </>

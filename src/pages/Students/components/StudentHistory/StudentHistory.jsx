@@ -16,20 +16,17 @@ const StudentHistory = ({ currentData, handleCancel, setError }) => {
         currentData?.id
       }`;
       let data = await api.get(url);
-      console.log("data 1", data);
       data = data.map((el) => ({
         id: el.id,
         start: formatDate(el.start),
         end: formatDate(el.end),
       }));
-      console.log("data 2", data);
       setHistory(data);
     }
     fetchData();
   }, [currentData]);
 
   const handleChange = (id, feature, value) => {
-    console.log("Change", id, feature, value);
     const newData = history.map((el) =>
       el.id === id ? { ...el, ...{ [feature]: value, touched: true } } : el
     );
@@ -37,7 +34,6 @@ const StudentHistory = ({ currentData, handleCancel, setError }) => {
   };
 
   const handleSubmit = async (e) => {
-    console.log("history", history);
     e.preventDefault();
     const arrHistory = history.filter((el) => el.touched === true);
     try {

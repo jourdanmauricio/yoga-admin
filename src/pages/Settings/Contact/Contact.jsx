@@ -15,6 +15,7 @@ const Contact = ({ settings, setError, dispatch, setLoading }) => {
         Whatsapp: "",
         email: "",
         phone: "",
+        address: "",
       }}
       validate={(values) => {
         const errors = {};
@@ -85,7 +86,6 @@ const Contact = ({ settings, setError, dispatch, setLoading }) => {
             message: "Error modificando la configuración",
           });
           setError(`${err.statusCode}: ${err.error} - ${err.message}`);
-          console.log(err);
         } finally {
           setSubmitting(false);
           setLoading(false);
@@ -101,8 +101,8 @@ const Contact = ({ settings, setError, dispatch, setLoading }) => {
             setFieldValue("Whatsapp", settings.Whatsapp || "");
             setFieldValue("email", settings.email || "");
             setFieldValue("phone", settings.phone || "");
+            setFieldValue("address", settings.address || "");
           }
-          console.log("Settings", settings);
         }, [settings]);
 
         return (
@@ -186,6 +186,16 @@ const Contact = ({ settings, setError, dispatch, setLoading }) => {
                   render={(msg) => <div className="error">{msg}</div>}
                 />
               </div>
+              <div>
+                <label htmlFor="address">Dirección</label>
+                <Field
+                  className="form__input"
+                  type="text"
+                  name="address"
+                  placeholder="Ingresa el domicilio"
+                />
+              </div>
+
               {/* ACTIONS */}
               <div className="wide action">
                 <button

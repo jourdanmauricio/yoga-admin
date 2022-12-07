@@ -102,8 +102,6 @@ const Students = () => {
   };
 
   const handleAction = (action, data) => {
-    console.log("Action", action);
-    console.log("currentData", data);
     setCurrentData(data);
     setAction(action);
     if (action === "DELETE") openModal();

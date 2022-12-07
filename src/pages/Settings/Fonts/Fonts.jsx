@@ -48,8 +48,6 @@ const Fonts = ({ settings, setError, dispatch, setLoading }) => {
         return errors;
       }}
       onSubmit={async (values, { setSubmitting }) => {
-        console.log("Values", values);
-
         try {
           setLoading(true);
           const data = await api.put(url, { body: { data: values } });
@@ -67,7 +65,6 @@ const Fonts = ({ settings, setError, dispatch, setLoading }) => {
             message: "Error modificando la configuración",
           });
           setError(`${err.statusCode}: ${err.error} - ${err.message}`);
-          console.log(err);
         } finally {
           setSubmitting(false);
           setLoading(false);
@@ -106,7 +103,6 @@ const Fonts = ({ settings, setError, dispatch, setLoading }) => {
               settings.paragraph_header_weight || 400
             );
           }
-          console.log("Settings", settings);
         }, [settings]);
 
         return (

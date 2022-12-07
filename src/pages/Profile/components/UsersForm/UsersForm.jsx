@@ -25,7 +25,6 @@ const UsersForm = ({ createData, updateData, dataToEdit, setDataToEdit }) => {
         <Formik
           initialValues={initialValues}
           validate={(values) => {
-            console.log("Values", values);
             const errors = {};
             if (!values.email) {
               errors.email = "Requerido";
@@ -57,7 +56,6 @@ const UsersForm = ({ createData, updateData, dataToEdit, setDataToEdit }) => {
         >
           {({ isSubmitting, setFieldValue, values }) => {
             useEffect(() => {
-              console.log("dataToEdit", dataToEdit);
               if (dataToEdit.id !== "") {
                 setFieldValue("id", dataToEdit.id);
                 setFieldValue("email", dataToEdit.email);

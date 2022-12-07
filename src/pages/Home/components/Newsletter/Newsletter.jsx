@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useNotification } from "@/commons/Notifications/NotificationProvider";
 import { helpHttp } from "@/helpers/helpHttp";
-import Message from "@/commons/Message/Message";
-import Loader from "@/commons/Loader-overlay/Loader-overlay";
 import { useModal } from "@/hooks/useModal";
 import { Modal } from "@/commons/Modal/Modal";
-import NewsletterDeleteForm from "./NewsletterDeleteForm";
-import NewsletterTable from "./NewsletterTable";
+import Message from "@/commons/Message/Message";
+import Loader from "@/commons/Loader-overlay/Loader-overlay";
+import NewsletterDeleteForm from "./components/NewsletterDeleteForm";
+import NewsletterTable from "./components/NewsletterTable";
 
 const Newsletter = () => {
   const dispatch = useNotification();

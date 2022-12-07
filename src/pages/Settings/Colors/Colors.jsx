@@ -89,7 +89,6 @@ const Colors = ({ settings, setError, dispatch, setLoading }) => {
       }}
       onSubmit={async (values, { setSubmitting }) => {
         try {
-          // console.log("Logo", values.logo);
           setLoading(true);
           const data = await api.put(url, { body: { data: values } });
           if (data.statusCode) {
@@ -106,7 +105,6 @@ const Colors = ({ settings, setError, dispatch, setLoading }) => {
             message: "Error modificando la configuración",
           });
           setError(`${err.statusCode}: ${err.error} - ${err.message}`);
-          console.log(err);
         } finally {
           setSubmitting(false);
           setLoading(false);
@@ -139,7 +137,6 @@ const Colors = ({ settings, setError, dispatch, setLoading }) => {
               settings.background_footer_color || "#9fabb2"
             );
           }
-          console.log("Settings", settings);
         }, [settings]);
 
         return (

@@ -13,7 +13,6 @@ const StudentViewForm = ({ currentData, handleCancel }) => {
       }`;
       const data = await api.get(url);
       setHistory(data);
-      console.log("history", history);
     }
     fetchData();
   }, [currentData]);
