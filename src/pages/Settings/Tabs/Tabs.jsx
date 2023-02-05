@@ -1,10 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import { FaRegImage, FaFont, FaFillDrip, FaWhatsapp } from "react-icons/fa";
+// import { FaRegImage, FaFont, FaFillDrip, FaWhatsapp } from "react-icons/fa";
+import { FaFillDrip, FaWhatsapp } from "react-icons/fa";
 import Colors from "../Colors/Colors";
 import Contact from "../Contact/Contact";
-import Fonts from "../Fonts/Fonts";
-import Images from "../Images/Images";
+// import Fonts from "../Fonts/Fonts";
+// import Images from "../Images/Images";
 import styles from "./tabs.module.css";
 import Loader from "@/commons/Loader-overlay/Loader-overlay";
 
@@ -40,7 +41,7 @@ const Tabs = ({ settings, setError, dispatch }) => {
           <FaWhatsapp color="green" />
           <span>Contacto</span>
         </div>
-        <div
+        {/* <div
           onClick={() => toggleTab(3)}
           className={
             toggleState === 3
@@ -61,7 +62,7 @@ const Tabs = ({ settings, setError, dispatch }) => {
         >
           <FaRegImage color="blue" />
           <span>Imagenes</span>
-        </div>
+        </div> */}
       </div>
       <div className={styles.content__tabs}>
         {loading && <Loader />}
@@ -93,7 +94,7 @@ const Tabs = ({ settings, setError, dispatch }) => {
             setLoading={setLoading}
           ></Contact>
         </div>
-        <div
+        {/* <div
           className={
             toggleState === 3
               ? `${styles.content} ${styles.active__content}`
@@ -120,7 +121,7 @@ const Tabs = ({ settings, setError, dispatch }) => {
             dispatch={dispatch}
             setLoading={setLoading}
           ></Images>
-        </div>
+        </div> */}
       </div>
     </div>
   );

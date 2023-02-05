@@ -9,10 +9,10 @@ const Contact = ({ settings, setError, dispatch, setLoading }) => {
   return (
     <Formik
       initialValues={{
-        Facebook: "",
-        Instagram: "",
-        Twitter: "",
-        Whatsapp: "",
+        facebook: "",
+        instagram: "",
+        twitter: "",
+        whatsapp: "",
         email: "",
         phone: "",
         address: "",
@@ -20,39 +20,39 @@ const Contact = ({ settings, setError, dispatch, setLoading }) => {
       validate={(values) => {
         const errors = {};
         if (
-          values.Facebook.length > 0 &&
+          values.facebook.length > 0 &&
           !/(?:https?:\/\/)?(?:www\.)?(?:facebook|fb|m\.facebook)\.(?:com|me)\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*([\w\-\.]+)(?:\/)?/i.test(
-            values.Facebook
+            values.facebook
           )
         ) {
-          errors.Facebook = "Ingrese un perfil válido para Facebook";
+          errors.facebook = "Ingrese un perfil válido para Facebook";
         }
 
         if (
-          values.Twitter.length > 0 &&
+          values.twitter.length > 0 &&
           !/http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/.test(
-            values.Twitter
+            values.twitter
           )
         ) {
-          errors.Twitter = "Ingrese un perfil válido para Twitter";
+          errors.twitter = "Ingrese un perfil válido para Twitter";
         }
 
         if (
-          values.Instagram.length > 0 &&
+          values.instagram.length > 0 &&
           !/(?:(?:http|https):\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am|twitter\.com)\/([A-Za-z0-9-_\.]+)/im.test(
-            values.Instagram
+            values.instagram
           )
         ) {
-          errors.Instagram = "Ingrese un perfil válido para Instagram";
+          errors.instagram = "Ingrese un perfil válido para Instagram";
         }
 
         if (
-          values.Whatsapp.length > 0 &&
+          values.whatsapp.length > 0 &&
           !/(?:(?:http|https):\/\/)?(?:www\.)?(?:wa\.me)\/.*$/.test(
-            values.Whatsapp
+            values.whatsapp
           )
         ) {
-          errors.Whatsapp = "Ingrese un link válido para Whatsapp";
+          errors.whatsapp = "Ingrese un link válido para Whatsapp";
         }
 
         if (
@@ -95,10 +95,10 @@ const Contact = ({ settings, setError, dispatch, setLoading }) => {
       {({ isSubmitting, setFieldValue, values }) => {
         useEffect(() => {
           if (settings) {
-            setFieldValue("Twitter", settings.Twitter || "");
-            setFieldValue("Facebook", settings.Facebook || "");
-            setFieldValue("Instagram", settings.Instagram || "");
-            setFieldValue("Whatsapp", settings.Whatsapp || "");
+            setFieldValue("twitter", settings.twitter || "");
+            setFieldValue("facebook", settings.facebook || "");
+            setFieldValue("instagram", settings.instagram || "");
+            setFieldValue("whatsapp", settings.whatsapp || "");
             setFieldValue("email", settings.email || "");
             setFieldValue("phone", settings.phone || "");
             setFieldValue("address", settings.address || "");
@@ -109,54 +109,54 @@ const Contact = ({ settings, setError, dispatch, setLoading }) => {
           <Form>
             <div className="formulario">
               <div>
-                <label htmlFor="Twitter">Twitter</label>
+                <label htmlFor="twitter">Twitter</label>
                 <Field
                   className="form__input"
                   type="text"
-                  name="Twitter"
+                  name="twitter"
                   placeholder="https://twitter.com/jourdanmau"
                 />
                 <ErrorMessage
-                  name="Twitter"
+                  name="twitter"
                   render={(msg) => <div className="error">{msg}</div>}
                 />
               </div>
               <div>
-                <label htmlFor="Facebook">Fecebook</label>
+                <label htmlFor="facebook">Facebook</label>
                 <Field
                   className="form__input"
                   type="text"
-                  name="Facebook"
+                  name="facebook"
                   placeholder="https://www.facebook.com/mauricio.jourdan.33"
                 />
                 <ErrorMessage
-                  name="Facebook"
+                  name="facebook"
                   render={(msg) => <div className="error">{msg}</div>}
                 />
               </div>
               <div>
-                <label htmlFor="Instagram">Instagram</label>
+                <label htmlFor="instagram">Instagram</label>
                 <Field
                   className="form__input"
                   type="text"
-                  name="Instagram"
+                  name="instagram"
                   placeholder="https://www.instagram.com/mauricio.jourdan.33/"
                 />
                 <ErrorMessage
-                  name="Instagram"
+                  name="instagram"
                   render={(msg) => <div className="error">{msg}</div>}
                 />
               </div>
               <div>
-                <label htmlFor="Whatsapp">Whatsapp</label>
+                <label htmlFor="whatsapp">Whatsapp</label>
                 <Field
                   className="form__input"
                   type="text"
-                  name="Whatsapp"
+                  name="whatsapp"
                   placeholder="https://wa.me/5491158046525?text=Hola, quiero rebir información"
                 />
                 <ErrorMessage
-                  name="Whatsapp"
+                  name="whatsapp"
                   render={(msg) => <div className="error">{msg}</div>}
                 />
               </div>
